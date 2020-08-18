@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=Player
-comment1.params=side
-comment1.target=Player(boolean)
-comment2.params=
-comment2.target=boolean\ isBlueSide()
-comment3.params=side
-comment3.target=void\ setSide(boolean)
-numComments=4

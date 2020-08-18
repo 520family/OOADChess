@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=Move
-comment1.params=player\ fromSquare\ toSquare
-comment1.target=Move(Player,\ Square,\ Square)
-comment2.params=
-comment2.target=void\ moved()
-comment3.params=
-comment3.target=Piece\ killed()
-numComments=4
