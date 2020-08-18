@@ -37,9 +37,11 @@ class Sun extends Piece {
 
     public boolean validMove(ChessBoard board, Square from, Square to) {
         // check if piece killing his ally
-        if (to.getPiece().isBlue() == this.isBlue()) {
-            return false;
-        }
+        if(to.getPiece() != null){
+            if (to.getPiece().isBlue() == this.isBlue()) {
+                return false;
+            }
+        } 
 
         int x = Math.abs(from.getX() - to.getX());
         int y = Math.abs(from.getY() - to.getY());
@@ -67,8 +69,10 @@ class Chevron extends Piece {
 
     public boolean validMove(ChessBoard board, Square from, Square to){
         // check if piece killing his ally
-        if (to.getPiece().isBlue() == this.isBlue()) {  
-            return false; 
+        if(to.getPiece() != null){
+            if (to.getPiece().isBlue() == this.isBlue()) {
+                return false;
+            }
         } 
 
         int x = Math.abs(from.getX() - to.getX()); 
@@ -96,9 +100,11 @@ class Triangle extends Piece {
 
     public boolean validMove(ChessBoard board, Square from, Square to) {
         // check if piece killing his ally
-        if (to.getPiece().isBlue() == this.isBlue()) {
-            return false;
-        }
+        if(to.getPiece() != null){
+            if (to.getPiece().isBlue() == this.isBlue()) {
+                return false;
+            }
+        } 
 
         int x = Math.abs(from.getX() - to.getX());
         int y = Math.abs(from.getY() - to.getY());
@@ -125,9 +131,11 @@ class Plus extends Piece {
 
     public boolean validMove(ChessBoard board, Square from, Square to) {
         // check if piece killing his ally
-        if (to.getPiece().isBlue() == this.isBlue()) {
-            return false;
-        }
+        if(to.getPiece() != null){
+            if (to.getPiece().isBlue() == this.isBlue()) {
+                return false;
+            }
+        } 
 
         int x = Math.abs(from.getX() - to.getX());
         int y = Math.abs(from.getY() - to.getY());
@@ -164,12 +172,14 @@ class Arrow extends Piece {
 
     public boolean validMove(ChessBoard board, Square from, Square to){
         // check if piece killing his ally
-        if (to.getPiece().isBlue() == this.isBlue()) {  
-            return false; 
+        if(to.getPiece() != null){
+            if (to.getPiece().isBlue() == this.isBlue()) {
+                return false;
+            }
         } 
-
         int x = from.getX() - to.getX(); 
-        int y = from.getY() - to.getY(); 
+        int y = from.getY() - to.getY();
+         
         if(reachedEnd){
             if(y < 0){ // Going backwards
                 x = Math.abs(x);
@@ -181,9 +191,16 @@ class Arrow extends Piece {
             return false;
         } else {
             if(y > 0){ // Going forward
-                if((y == 1 || y == 2) && x == 0){
+                //if((y == 1 || y == 2) && x == 0){
                     return true; 
-                }
+                //}
+            } else if(y <= 0){ // Going backwards
+                x = Math.abs(x);
+                y = Math.abs(y);
+                return true;
+                //if((y == 1 || y == 2) && x == 0){
+                  //  return true; 
+                //}
             }
             return false;
         }
