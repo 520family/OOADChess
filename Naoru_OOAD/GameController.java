@@ -102,47 +102,44 @@ public class GameController implements ActionListener {
         return this.winner == null;
     }
 
-    /* public void piecesSwitching() {
-    ArrayList<Square> toPlus = new ArrayList<>();
-    ArrayList<Square> toTriangle = new ArrayList<>();
-    boolean sideState = false; // Save player’s side
-    Player player = null;
-    if (p1Moves % 2 == 0 || p2Moves % 2 == 0) { // Even number 2nd, 4th, 6th etc
-    if (p1Moves % 2 == 0) { // VERY BAD WAY OF DOING THIS
-    player = this.players.get(0);
+    public void piecesSwitching() {
+        ArrayList<Square> toPlus = new ArrayList<>();
+        ArrayList<Square> toTriangle = new ArrayList<>();
+        boolean sideState = false; // Save player’s side
+        Player player = null;
+        if(p1Moves > 0 && p1Moves % 2 == 0 && currentTurn == 0){
+            player = this.players.get(0);
+        }
+        if(p2Moves > 0 && p2Moves % 2 == 0  && currentTurn == 1){
+            player = this.players.get(1);
+        }
+        if (player instanceof Player) {
+            sideState = player.isBlueSide();
+            Square[][] allBox = board.getAllBox();
+            for (int i = 0; i < allBox.length; i++) {
+                for (int j = 0; j < allBox[i].length; j++) {
+                    Square box = allBox[i][j];
+                    Piece source = box.getPiece();
+                    if(source instanceof Piece){
+                        if (source.isBlue() == sideState) {
+                            if (source instanceof Triangle) {
+                                toPlus.add(box);
+                            } else if (source instanceof Plus) {
+                                toTriangle.add(box);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (Square plus : toPlus) {
+            plus.setPiece(PieceFactory.makePiece("Plus", sideState));
+        }
+        for (Square triangle : toTriangle) {
+            triangle.setPiece(PieceFactory.makePiece("Triangle", sideState));
+        }
     }
-    if (p2Moves % 2 == 0) { // BUT I LAZY TO THINK RN MAYBE fix later
-    player = this.players.get(1);
-    }
-    if(player == null){
-    // throw exception or show something here
-    }
-    sideState = player.isBlueSide();
-    Square[][] allBox = board.getAllBox();
-    for(int i = 0; i < allBox.length; i++){
-    for(int j = 0; j < allBox[i].length; j++){
-    Square box = allBox[i][j];
-    Piece source = box.getPiece();
-    if (source.isBlue() == sideState) {
-    if (source instanceof Triangle) {
-    toPlus.add(box);
-    } else if (source instanceof Plus) {
-    toTriangle.add(box);
-    }
-    }
-    }
-    }
-    }
-    for (Square plus : toPlus) {
-    plus.setPiece(new Plus(sideState));
-    // Need update icon somewhere maybe in setPiece()
-    }
-    for (Square triangle : toTriangle) {
-    triangle.setPiece(new Triangle(sideState));
-    // Need update icon somewhere maybe in setPiece()
-    }
-    }
-     */
+    
     public boolean movePiece(int startX, int startY, int endX, int endY)
     // return true when piece is moved and false otherwise
     {
@@ -219,7 +216,7 @@ public class GameController implements ActionListener {
             p2Moves += 1;
         }
 
-        //this.piecesSwitching();
+        this.piecesSwitching();
         this.switchCurrentPlayer();
         this.Flipboard();
         this.updateVisual();
