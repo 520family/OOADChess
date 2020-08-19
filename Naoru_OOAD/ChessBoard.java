@@ -83,5 +83,13 @@ class ChessBoard
     public void SetBoxes(int x, int y, Square square){
         boxes[y][x] = square;
     }
+     
+    public void clearBoxes(){
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 7; x++) {
+                boxes[y][x] = new Square(x, y);
+            }
+        }
+    }
 }
 
