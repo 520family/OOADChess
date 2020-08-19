@@ -132,13 +132,11 @@ public class GameController implements ActionListener {
         boolean playerside = board.getBox(startX, startY).getPiece().isBlue();
 
         if(playerside != this.getCurrentPlayer().isBlueSide()) {
-            System.out.println("False 135");
             return false;
         }
         //to ensure if accidentally pressed on empty square nothing happen
         try {
             if (source.isBlue() != playerside) {
-            System.out.println("False 141");
             return false;
             }
         } catch (Exception e) {
@@ -150,7 +148,6 @@ public class GameController implements ActionListener {
         Square to = board.getBox(endX, endY);
         
         if (!source.validMove(board, from, to)) {
-            System.out.println("False 152:Invalid move");
             return false;
         }
  
@@ -237,10 +234,8 @@ public class GameController implements ActionListener {
                 endX = x;
                 endY = y;
                 firstClick = 0;
-                boolean moved = movePiece(startX,startY,endX,endY);  
-                System.out.println("here" + moved);     
+                boolean moved = movePiece(startX,startY,endX,endY);   
             }
-
         }
     }
 }
