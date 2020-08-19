@@ -2,6 +2,7 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.io.*;
 import javax.swing.event.*;
 
 //javac GameController.java GameGUI.java Piece.java ChessBoard.java Square.java Player.java
@@ -26,6 +27,8 @@ public class GameController implements ActionListener {
 
         gameGui.getStartButton().addActionListener(this);
         gameGui.getStartButton().setActionCommand("start");
+        gameGui.getSaveButton().addActionListener(this);
+        gameGui.getSaveButton().setActionCommand("save");
 
     }
     public void actionPerformed(ActionEvent event){
@@ -34,17 +37,38 @@ public class GameController implements ActionListener {
             Player p2 = new Player(true);
 
             this.initialize(p1, p2);
-        }        
-        JButton[][] buttons = gameGui.getAllButtons();
-        for(int y = 0; y < 8; y++){
-            for(int x = 0; x < 7; x++){
-                buttons[y][x].addActionListener(new MoveListener(y,x));
+                
+            JButton[][] buttons = gameGui.getAllButtons();
+            for(int y = 0; y < 8; y++){
+                for(int x = 0; x < 7; x++){
+                    buttons[y][x].addActionListener(new MoveListener(y,x));
+                }
             }
+        } else if(event.getActionCommand() == "save"){
+            saveGame();
         }
     }
 
     public void saveGame() {
+        File file = new File("SaveGame.txt");
 
+        try {
+            PrintWriter fout = new PrintWriter(file);
+            for(int y = 0 ; y < 8 ; y++){
+                for(int x = 0; x < 7 ; x++){
+                    if(board.getBox(x, y).getPiece() != null){
+                        fout.println(x +" "+ y +" "+board.getBox(x, y).getPiece().getName());
+                    } else {
+                        fout.println(x +" "+ y +" "+ "empty");
+                    }
+                }
+            }
+            fout.println(currentTurn);
+            fout.close();
+            
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initialize(Player p1, Player p2) {
@@ -52,12 +76,6 @@ public class GameController implements ActionListener {
         players.add(p2);
 
         board = new ChessBoard();
-
-        if (p1.isBlueSide()) {
-            this.currentTurn = 1;
-        } else {
-            this.currentTurn = 0;
-        }
 
         this.updateVisual();
         // movesPlayed.clear();

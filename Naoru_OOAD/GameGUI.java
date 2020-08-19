@@ -9,6 +9,8 @@ class GameGUI extends JFrame{
 
     private JButton [][] buttons;
     private JButton start;
+    private JButton save;
+    private JButton load;
     private JLabel turn;
 
 	public GameGUI(){
@@ -17,8 +19,8 @@ class GameGUI extends JFrame{
         JPanel jp = new JPanel(new GridLayout(8,7));
 	    buttons = new JButton [8][7];
         start = new JButton("Start");
-		JButton save = new JButton("Save");
-        JButton load = new JButton("Load");
+		save = new JButton("Save");
+        load = new JButton("Load");
         turn = new JLabel();
 		p.add(start,  BorderLayout.WEST);
 		p.add(save, BorderLayout.WEST);
@@ -45,6 +47,14 @@ class GameGUI extends JFrame{
 
     public JButton[][] getAllButtons(){
         return buttons;
+    }
+    
+    public JButton getSaveButton(){
+        return save;
+    }
+
+    public JButton getLoadButton(){
+        return load;
     }
 
     public JLabel getTurnLabel(){
