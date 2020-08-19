@@ -48,6 +48,8 @@ class Sun extends Piece {
         // to check if the move is 1unit vertically or horizontally
         if (x + y == 1) {
             return true;
+        }else if (x == y && x == 1) {
+            return true;
         }
 
         return false;

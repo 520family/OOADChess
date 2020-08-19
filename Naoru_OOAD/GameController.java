@@ -136,7 +136,9 @@ public class GameController implements ActionListener {
         }
 
         if(playerside != this.getCurrentPlayer().isBlueSide()) {
+            gameGui.ShowWrongPieceError();
             return false;
+
         }
         //to ensure if accidentally pressed on empty square nothing happen
         try {
