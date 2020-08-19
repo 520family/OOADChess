@@ -50,6 +50,10 @@ class GameGUI extends JFrame{
     public JLabel getTurnLabel(){
         return turn;
     }
+
+    public void ShowWrongPieceError(){
+        JOptionPane.showMessageDialog(null, "You can't move your enemy piece!");
+    }
 }
 
 
