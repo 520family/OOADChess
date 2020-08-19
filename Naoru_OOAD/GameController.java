@@ -4,6 +4,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
+//javac GameController.java GameGUI.java Piece.java ChessBoard.java Square.java Player.java
+
 public class GameController implements ActionListener {
     private int game_id;
     private ArrayList<Player> players = new ArrayList<>();
@@ -52,9 +54,9 @@ public class GameController implements ActionListener {
         board = new ChessBoard();
 
         if (p1.isBlueSide()) {
-            this.currentTurn = 0;
+            this.currentTurn = 1;
         } else {
-            this.currentTurn =1;
+            this.currentTurn = 0;
         }
 
         this.updateVisual();
@@ -201,8 +203,27 @@ public class GameController implements ActionListener {
 
         //this.piecesSwitching();
         this.switchCurrentPlayer();
+        this.Flipboard();
         this.updateVisual();
         return true;
+
+    }
+
+    public void Flipboard(){
+        Square[][] UpperSquares = board.getUpperHalfBox();
+        Square[][] LowerSquares = board.getLowerHalfBox();
+
+        for(int y = 3; y >= 0; y--){
+            for(int x = 0; x < 7; x++){
+                board.SetBoxes(x, Math.abs(3-y), LowerSquares[y][x]);
+            }
+        }
+ 
+        for(int y = 0; y < 4; y++){
+            for(int x = 0; x < 7; x++){
+                board.SetBoxes(x, 7-y, UpperSquares[y][x]);
+            }
+        }
 
     }
 
@@ -214,13 +235,13 @@ public class GameController implements ActionListener {
         String side = currentTurn == 0 ? "Red" : "Blue";
         turn.setText(side + " turn");
 
-        for(int i = 0; i < squares.length; i++){
-            for(int j = 0; j < squares[i].length; j++){
-                Square box = squares[i][j];
+        for(int y = 0; y < squares.length; y++){
+            for(int x = 0; x < squares[y].length; x++){
+                Square box = squares[y][x];
                 Piece piece = box.getPiece();
                 // Need update Icon here
-                if (squares[i][j].getPiece() != null){
-                    buttons[i][j].setIcon(loadImage(piece.getIcon()));
+                if (squares[y][x].getPiece() != null){
+                    buttons[y][x].setIcon(loadImage(piece.getIcon()));
                 }
             }
         }

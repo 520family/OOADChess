@@ -21,9 +21,9 @@ class ChessBoard
     public void resetBoard()// this function is reset the pieces into their place
     { 
         // initialize remain blank Square
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 7; j++) {
-                boxes[i][j] = new Square(i, j);
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 7; x++) {
+                boxes[y][x] = new Square(x, y);
             }
         }
 
@@ -56,6 +56,32 @@ class ChessBoard
 
     public Square[][] getAllBox() {
         return boxes;
+    }
+
+    public Square[][] getUpperHalfBox() {
+
+        Square[][] tempbox = new Square [4][7];
+        for(int y = 0; y < 4; y++){
+            for(int x = 0; x < 7; x++){
+                tempbox[y][x] = boxes[y][x];
+            }
+        }
+        return tempbox;
+    }
+
+    public Square[][] getLowerHalfBox() {
+
+        Square[][] tempbox = new Square [4][7];
+        for(int y = 0; y < 4; y++){
+            for(int x = 0; x < 7; x++){
+                tempbox[y][x] = boxes[y+4][x];
+            }
+        }
+        return tempbox;
+    }
+
+    public void SetBoxes(int x, int y, Square square){
+        boxes[y][x] = square;
     }
 }
 
