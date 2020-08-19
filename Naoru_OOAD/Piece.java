@@ -208,7 +208,14 @@ class Arrow extends Piece {
 
     public String getIcon(){
         if(isBlue()){
+            if(reachedEnd){
+                return "BlueArrow-reverse.png";
+            }
             return "BlueArrow.png";
+        }
+
+        if(reachedEnd){
+            return "RedArrow-reverse.png";
         }
         return "RedArrow.png";
     }

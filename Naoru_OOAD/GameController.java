@@ -137,7 +137,7 @@ public class GameController implements ActionListener {
         //to ensure if accidentally pressed on empty square nothing happen
         try {
             if (source.isBlue() != playerside) {
-            return false;
+                return false;
             }
         } catch (Exception e) {
             return false;
@@ -165,13 +165,24 @@ public class GameController implements ActionListener {
         if (source instanceof Arrow) {
             // Handle arrow reaching end or some shit here
             Arrow arrowPiece = (Arrow) source;
-            if (arrowPiece.hasReachedEnd()) {
-                if (endY <= 0) {
-                arrowPiece.setReachedEnd(false);
+            System.out.println(endY);
+            if (!arrowPiece.hasReachedEnd() && !arrowPiece.isBlue()) {
+                if (endX == 0){
+                    arrowPiece.setReachedEnd(true);
                 }
-            } else {
-                if (endY >= 8) {
-                arrowPiece.setReachedEnd(true);
+            }else if(!arrowPiece.hasReachedEnd() && arrowPiece.isBlue()){
+                if (endX == 7){
+                    arrowPiece.setReachedEnd(true);
+                }
+            }
+
+            if (arrowPiece.hasReachedEnd() && !arrowPiece.isBlue()) {
+                if (endX == 7){
+                    arrowPiece.setReachedEnd(false);
+                }
+            }else if(arrowPiece.hasReachedEnd() && arrowPiece.isBlue()){
+                if (endX == 0){
+                    arrowPiece.setReachedEnd(false);
                 }
             }
         }
