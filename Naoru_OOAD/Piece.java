@@ -3,10 +3,9 @@ import java.util.*;
 abstract class Piece {
     private boolean dead = false;
     private boolean blue = false;
-    private String name;
-    public Piece(boolean blue,String name) {
+
+    public Piece(boolean blue) {
         this.setBlue(blue);
-        this.setName(name);
     }
 
     public boolean isBlue() {
@@ -24,22 +23,16 @@ abstract class Piece {
     public void setDead(boolean dead) {
         this.dead = dead;
     }
-    
-    public void setName(String name){
-        this.name = name;
-    }
-    
-    public String getName(){
-        return name;
-    }
+
     public abstract boolean validMove(ChessBoard board, Square from, Square to);
+
     public abstract String getIcon(); // TODO: need to change to Icon
 }
 
 
 class Sun extends Piece {
     public Sun(boolean blue) {
-        super(blue,"Sun");
+        super(blue);
     }
 
     public boolean validMove(ChessBoard board, Square from, Square to) {
@@ -73,7 +66,7 @@ class Sun extends Piece {
 
 class Chevron extends Piece {
     public Chevron(boolean blue) {
-        super(blue,"Chevron");
+        super(blue);
     }
 
     public boolean validMove(ChessBoard board, Square from, Square to){
@@ -104,7 +97,7 @@ class Chevron extends Piece {
 
 class Triangle extends Piece {
     public Triangle(boolean blue) {
-        super(blue,"Triangle");
+        super(blue);
     }
 
     public boolean validMove(ChessBoard board, Square from, Square to) {
@@ -135,7 +128,7 @@ class Triangle extends Piece {
 
 class Plus extends Piece {
     public Plus(boolean blue) {
-        super(blue,"Plus");
+        super(blue);
     }
 
     public boolean validMove(ChessBoard board, Square from, Square to) {
@@ -168,7 +161,7 @@ class Arrow extends Piece {
     private boolean reachedEnd = false;
 
     public Arrow(boolean blue){
-        super(blue,"Arrow");
+        super(blue);
     }
 
     public void setReachedEnd(boolean value) {
@@ -188,28 +181,28 @@ class Arrow extends Piece {
         } 
         int x = from.getX() - to.getX(); 
         int y = from.getY() - to.getY();
-         
+
         if(reachedEnd){
             if(y < 0){ // Going backwards
                 x = Math.abs(x);
                 y = Math.abs(y);
-                //if((y == 1 || y == 2) && x == 0){
+                if((y == 1 || y == 2) && x == 0){
                     return true; 
-               // }
+                }
             }
             return false;
         } else {
             if(y > 0){ // Going forward
-                //if((y == 1 || y == 2) && x == 0){
+                if((y == 1 || y == 2) && x == 0){
                     return true; 
-                //}
-            } else if(y <= 0){ // Going backwards
+                }
+            } else if(y < 0){ // Going backwards
                 x = Math.abs(x);
                 y = Math.abs(y);
-                return true;
-                /*if((y == 1 || y == 2) && x == 0){
+                
+                if((y == 1 || y == 2) && x == 0){
                     return true; 
-                }*/
+                }
             }
             return false;
         }
