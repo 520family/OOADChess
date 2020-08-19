@@ -25,6 +25,12 @@ abstract class Piece {
         this.dead = dead;
     }
 
+    public void setName(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return name;
+    }
     public abstract boolean validMove(ChessBoard board, Square from, Square to);
 
     public abstract String getIcon(); // TODO: need to change to Icon
