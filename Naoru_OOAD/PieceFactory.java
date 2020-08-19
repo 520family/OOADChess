@@ -1,5 +1,5 @@
 public class PieceFactory {
-    public Piece makePiece(String pieceName,boolean isBlue){
+    public static Piece makePiece(String pieceName,boolean isBlue){
         switch (pieceName) {
             case "Sun":
                 return new Sun(isBlue);
