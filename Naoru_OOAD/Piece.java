@@ -184,23 +184,23 @@ class Arrow extends Piece {
             if(y < 0){ // Going backwards
                 x = Math.abs(x);
                 y = Math.abs(y);
-                if((y == 1 || y == 2) && x == 0){
+                //if((y == 1 || y == 2) && x == 0){
                     return true; 
-                }
+               // }
             }
             return false;
         } else {
             if(y > 0){ // Going forward
-                if((y == 1 || y == 2) && x == 0){
+                //if((y == 1 || y == 2) && x == 0){
                     return true; 
-                }
+                //}
             } else if(y <= 0){ // Going backwards
                 x = Math.abs(x);
                 y = Math.abs(y);
                 return true;
-                if((y == 1 || y == 2) && x == 0){
+                /*if((y == 1 || y == 2) && x == 0){
                     return true; 
-                }
+                }*/
             }
             return false;
         }
