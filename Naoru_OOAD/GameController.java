@@ -130,6 +130,11 @@ public class GameController implements ActionListener {
         JButton[][] buttons = gameGui.getAllButtons();
         boolean playerside = board.getBox(startX, startY).getPiece().isBlue();
 
+        if(firstClick == 0){
+            JButton selected = buttons[startY][startX];
+            selected.setBackground(new Color(255,255,255));
+        }
+
         if(playerside != this.getCurrentPlayer().isBlueSide()) {
             return false;
         }
@@ -203,6 +208,10 @@ public class GameController implements ActionListener {
         JButton[][] buttons = gameGui.getAllButtons();
         Square[][] squares = board.getAllBox();
 
+        JLabel turn = gameGui.getTurnLabel();
+        String side = currentTurn == 0 ? "Red" : "Blue";
+        turn.setText(side + " turn");
+
         for(int i = 0; i < squares.length; i++){
             for(int j = 0; j < squares[i].length; j++){
                 Square box = squares[i][j];
@@ -240,6 +249,12 @@ public class GameController implements ActionListener {
                 firstClick = 1;
                 if(board.getBox(x,y).getPiece() == null){
                     firstClick = 0;
+                } else {
+                    Object source = e.getSource();
+                    if(source instanceof JButton){
+                        JButton button = (JButton) source;
+                        button.setBackground(Color.GREEN);
+                    }
                 }
             } else if(firstClick == 1){
                 endX = x;
