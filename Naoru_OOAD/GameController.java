@@ -236,11 +236,12 @@ public class GameController implements ActionListener {
 
         public void actionPerformed(ActionEvent e){
             if(firstClick == 0){
-                System.out.println(firstClick);
                 startX = x;
                 startY = y;
                 firstClick = 1;
-                System.out.println(firstClick);
+                if(board.getBox(x,y).getPiece() == null){
+                    firstClick = 0;
+                }
             } else if(firstClick == 1){
                 endX = x;
                 endY = y;
