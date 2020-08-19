@@ -31,6 +31,7 @@ public class GameController implements ActionListener {
         gameGui.getSaveButton().setActionCommand("save");
 
     }
+    
     public void actionPerformed(ActionEvent event){
         if(event.getActionCommand() == "start"){
             Player p1 = new Player(false);
@@ -46,6 +47,10 @@ public class GameController implements ActionListener {
             }
         } else if(event.getActionCommand() == "save"){
             saveGame();
+        } else if(event.getActionCommand() == "load"){
+            board.clearBoxes();
+            loadGame();
+            this.updateVisual();
         }
     }
 
@@ -57,7 +62,7 @@ public class GameController implements ActionListener {
             for(int y = 0 ; y < 8 ; y++){
                 for(int x = 0; x < 7 ; x++){
                     if(board.getBox(x, y).getPiece() != null){
-                        fout.println(x +" "+ y +" "+board.getBox(x, y).getPiece().getName());
+                        fout.println(x +" "+ y +" "+board.getBox(x, y).getPiece().getName()+" "+board.getBox(x, y).getPiece().isBlue());
                     } else {
                         fout.println(x +" "+ y +" "+ "empty");
                     }
@@ -71,6 +76,37 @@ public class GameController implements ActionListener {
         }
     }
 
+    public void loadGame(){
+        PieceFactory pieceFactory = new PieceFactory();
+        File file = new File("SaveGame.txt");
+        int x;
+        int y;
+        String name;
+        boolean bool;
+        try {
+           Scanner scan = new Scanner(file); 
+           while(scan.hasNextLine()){
+                x = scan.nextInt();
+                y = scan.nextInt();
+                name = scan.next();
+                System.out.println(x + " " + y +" " + name);
+               if(!name.equals("empty")){
+                    bool = scan.nextBoolean();
+                    System.out.println(bool);
+                    board.getBox(x, y).setPiece(pieceFactory.makePiece(name,bool));
+               } else {
+                    board.getBox(x, y).setPiece(null);
+               }
+           }
+           scan.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error");
+        } catch(NoSuchElementException e){
+            System.out.println("Here");
+        }
+
+    }
+    
     private void initialize(Player p1, Player p2) {
         players.add(p1);
         players.add(p2);
