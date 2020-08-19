@@ -260,6 +260,8 @@ public class GameController implements ActionListener {
                 // Need update Icon here
                 if (squares[y][x].getPiece() != null){
                     buttons[y][x].setIcon(loadImage(piece.getIcon()));
+                }else{
+                    buttons[y][x].setIcon(null);
                 }
             }
         }
