@@ -29,29 +29,29 @@ class ChessBoard
 
         // initialize blue pieces
         boxes[0][0] = new Square(0, 0, new Plus(true));
-        boxes[0][1] = new Square(0, 1, new Triangle(true));
-        boxes[0][2] = new Square(0, 2, new Chevron(true));
-        boxes[0][3] = new Square(0, 3, new Sun(true));
-        boxes[0][4] = new Square(0, 4, new Chevron(true));
-        boxes[0][5] = new Square(0, 5, new Triangle(true));
-        boxes[0][6] = new Square(0, 6, new Plus(true));
-        boxes[1][0] = new Square(1, 0, new Arrow(true));
-        boxes[1][2] = new Square(1, 2, new Arrow(true));
-        boxes[1][4] = new Square(1, 4, new Arrow(true));
-        boxes[1][6] = new Square(1, 6, new Arrow(true));
+        boxes[0][1] = new Square(1, 0, new Triangle(true));
+        boxes[0][2] = new Square(2, 0, new Chevron(true));
+        boxes[0][3] = new Square(3, 0, new Sun(true));
+        boxes[0][4] = new Square(4, 0, new Chevron(true));
+        boxes[0][5] = new Square(5, 0, new Triangle(true));
+        boxes[0][6] = new Square(6, 0, new Plus(true));
+        boxes[1][0] = new Square(1, 1, new Arrow(true));
+        boxes[1][2] = new Square(2, 1, new Arrow(true));
+        boxes[1][4] = new Square(4, 1, new Arrow(true));
+        boxes[1][6] = new Square(6, 1, new Arrow(true));
 
         // initialize red pieces
-        boxes[6][0] = new Square(6, 0, new Arrow(false));
-        boxes[6][2] = new Square(6, 2, new Arrow(false));
-        boxes[6][4] = new Square(6, 4, new Arrow(false));
+        boxes[6][0] = new Square(0, 6, new Arrow(false));
+        boxes[6][2] = new Square(2, 6, new Arrow(false));
+        boxes[6][4] = new Square(4, 6, new Arrow(false));
         boxes[6][6] = new Square(6, 6, new Arrow(false));
-        boxes[7][0] = new Square(7, 0, new Plus(false));
-        boxes[7][1] = new Square(7, 1, new Triangle(false));
-        boxes[7][2] = new Square(7, 2, new Chevron(false));
-        boxes[7][3] = new Square(7, 3, new Sun(false));
-        boxes[7][4] = new Square(7, 4, new Chevron(false));
-        boxes[7][5] = new Square(7, 5, new Triangle(false));
-        boxes[7][6] = new Square(7, 6, new Plus(false));
+        boxes[7][0] = new Square(0, 7, new Plus(false));
+        boxes[7][1] = new Square(1, 7, new Triangle(false));
+        boxes[7][2] = new Square(2, 7, new Chevron(false));
+        boxes[7][3] = new Square(3, 7, new Sun(false));
+        boxes[7][4] = new Square(4, 7, new Chevron(false));
+        boxes[7][5] = new Square(5, 7, new Triangle(false));
+        boxes[7][6] = new Square(6, 7, new Plus(false));
     }
 
     public Square[][] getAllBox() {
