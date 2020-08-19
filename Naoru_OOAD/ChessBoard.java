@@ -15,7 +15,7 @@ class ChessBoard
             //throw new Exception("spot did not exist");
         }
 	
-	    return boxes[x][y];
+	    return boxes[y][x];
  	}
 
     public void resetBoard()// this function is reset the pieces into their place

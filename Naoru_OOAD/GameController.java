@@ -34,9 +34,9 @@ public class GameController implements ActionListener {
             this.initialize(p1, p2);
         }        
         JButton[][] buttons = gameGui.getAllButtons();
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 7; j++){
-                buttons[i][j].addActionListener(new MoveListener(i,j));
+        for(int y = 0; y < 8; y++){
+            for(int x = 0; x < 7; x++){
+                buttons[y][x].addActionListener(new MoveListener(y,x));
             }
         }
     }
@@ -121,7 +121,6 @@ public class GameController implements ActionListener {
     triangle.setPiece(new Triangle(sideState));
     // Need update icon somewhere maybe in setPiece()
     }
-
     }
      */
     public boolean movePiece(int startX, int startY, int endX, int endY)
@@ -156,32 +155,32 @@ public class GameController implements ActionListener {
         if (target != null) {
             target.setDead(true);
             // remove icon from GUI
-            buttons[endX][endY].setIcon(loadImage(from.getPiece().getIcon()));
+            buttons[endY][endX].setIcon(loadImage(from.getPiece().getIcon()));
         }
-        buttons[startX][startY].setIcon(null);
+        buttons[startY][startX].setIcon(null);
         to.setPiece(source);
         from.setPiece(null);
 
         if (source instanceof Arrow) {
             // Handle arrow reaching end or some shit here
             Arrow arrowPiece = (Arrow) source;
-            System.out.println(endY);
+
             if (!arrowPiece.hasReachedEnd() && !arrowPiece.isBlue()) {
-                if (endX == 0){
+                if (endY == 0){
                     arrowPiece.setReachedEnd(true);
                 }
             }else if(!arrowPiece.hasReachedEnd() && arrowPiece.isBlue()){
-                if (endX == 7){
+                if (endY == 7){
                     arrowPiece.setReachedEnd(true);
                 }
             }
 
             if (arrowPiece.hasReachedEnd() && !arrowPiece.isBlue()) {
-                if (endX == 7){
+                if (endY == 7){
                     arrowPiece.setReachedEnd(false);
                 }
             }else if(arrowPiece.hasReachedEnd() && arrowPiece.isBlue()){
-                if (endX == 0){
+                if (endY == 0){
                     arrowPiece.setReachedEnd(false);
                 }
             }
@@ -229,7 +228,7 @@ public class GameController implements ActionListener {
     class MoveListener implements ActionListener{
         int x;
         int y;
-        public MoveListener(int x, int y){
+        public MoveListener(int y, int x){
             this.x = x;
             this.y = y;
         }
@@ -251,4 +250,3 @@ public class GameController implements ActionListener {
         }
     }
 }
-
