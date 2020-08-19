@@ -29,6 +29,8 @@ public class GameController implements ActionListener {
         gameGui.getStartButton().setActionCommand("start");
         gameGui.getSaveButton().addActionListener(this);
         gameGui.getSaveButton().setActionCommand("save");
+        gameGui.getLoadButton().addActionListener(this);
+        gameGui.getLoadButton().setActionCommand("load");
 
     }
     
