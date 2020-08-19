@@ -3,9 +3,10 @@ import java.util.*;
 abstract class Piece {
     private boolean dead = false;
     private boolean blue = false;
-
-    public Piece(boolean blue) {
+    private String name;
+    public Piece(boolean blue,String name) {
         this.setBlue(blue);
+        this.setName(name);
     }
 
     public boolean isBlue() {
@@ -23,16 +24,22 @@ abstract class Piece {
     public void setDead(boolean dead) {
         this.dead = dead;
     }
-
+    
+    public void setName(String name){
+        this.name = name;
+    }
+    
+    public String getName(){
+        return name;
+    }
     public abstract boolean validMove(ChessBoard board, Square from, Square to);
-
     public abstract String getIcon(); // TODO: need to change to Icon
 }
 
 
 class Sun extends Piece {
     public Sun(boolean blue) {
-        super(blue);
+        super(blue,"Sun");
     }
 
     public boolean validMove(ChessBoard board, Square from, Square to) {
@@ -66,7 +73,7 @@ class Sun extends Piece {
 
 class Chevron extends Piece {
     public Chevron(boolean blue) {
-        super(blue);
+        super(blue,"Chevron");
     }
 
     public boolean validMove(ChessBoard board, Square from, Square to){
@@ -97,7 +104,7 @@ class Chevron extends Piece {
 
 class Triangle extends Piece {
     public Triangle(boolean blue) {
-        super(blue);
+        super(blue,"Triangle");
     }
 
     public boolean validMove(ChessBoard board, Square from, Square to) {
@@ -128,7 +135,7 @@ class Triangle extends Piece {
 
 class Plus extends Piece {
     public Plus(boolean blue) {
-        super(blue);
+        super(blue,"Plus");
     }
 
     public boolean validMove(ChessBoard board, Square from, Square to) {
@@ -161,7 +168,7 @@ class Arrow extends Piece {
     private boolean reachedEnd = false;
 
     public Arrow(boolean blue){
-        super(blue);
+        super(blue,"Arrow");
     }
 
     public void setReachedEnd(boolean value) {
