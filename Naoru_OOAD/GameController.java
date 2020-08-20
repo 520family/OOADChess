@@ -94,10 +94,8 @@ public class GameController implements ActionListener {
                 x = scan.nextInt();
                 y = scan.nextInt();
                 name = scan.next();
-                System.out.println(x + " " + y +" " + name);
                if(!name.equals("empty")){
                     bool = scan.nextBoolean();
-                    System.out.println(bool);
                     board.getBox(x, y).setPiece(PieceFactory.makePiece(name,bool));
                } else {
                     board.getBox(x, y).setPiece(null);
