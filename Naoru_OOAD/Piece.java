@@ -215,6 +215,10 @@ class Arrow extends Piece {
                 x = Math.abs(x);
                 y = Math.abs(y);
                 if((y == 1 || y == 2) && x == 0){
+                     if (y==2 && board.getBox(from.getX(),from.getY()-1).getPiece()!=null){
+                        return false;
+                    }else if (y==2 && board.getBox(from.getX(),from.getY()+1).getPiece()!=null){
+                        return false;}
                     return true; 
                 }
             }
@@ -222,6 +226,9 @@ class Arrow extends Piece {
         } else {
             if(y > 0){ // Going forward
                 if((y == 1 || y == 2) && x == 0){
+                    if (y==2 && board.getBox(from.getX(),from.getY()-1).getPiece()!=null){
+                        return false;
+                    }
                     return true; 
                 }
             } else if(y < 0){ // Going backwards
@@ -229,6 +236,9 @@ class Arrow extends Piece {
                 y = Math.abs(y);
                 
                 if((y == 1 || y == 2) && x == 0){
+                    if(y==2 && board.getBox(from.getX(),from.getY()+1).getPiece()!=null){
+                        return false;}
+                 
                     return true; 
                 }
             }
