@@ -217,7 +217,7 @@ public class GameController implements ActionListener {
         if (target != null) {
             target.setDead(true);
             // remove icon from GUI
-            buttons[endY][endX].setIcon(loadImage(from.getPiece().getIcon()));
+            buttons[endY][endX].setIcon(loadImage(from.getPiece().getIcon(currentTurn)));
         }
         buttons[startY][startX].setIcon(null);
         to.setPiece(source);
@@ -227,7 +227,16 @@ public class GameController implements ActionListener {
             // Handle arrow reaching end or some shit here
             Arrow arrowPiece = (Arrow) source;
 
-            if (!arrowPiece.hasReachedEnd() && !arrowPiece.isBlue()) {
+            if(!arrowPiece.hasReachedEnd()){
+                if(endY == 0){
+                    arrowPiece.setReachedEnd(true);
+                }
+            } else {
+                if(endY == 7){
+                    arrowPiece.setReachedEnd(false);
+                }
+            }
+            /*if (!arrowPiece.hasReachedEnd() && !arrowPiece.isBlue()) {
                 if (endY == 0){
                     arrowPiece.setReachedEnd(true);
                 }
@@ -245,7 +254,7 @@ public class GameController implements ActionListener {
                 if (endY == 0){
                     arrowPiece.setReachedEnd(false);
                 }
-            }
+            }*/
         }
 
         if (this.currentTurn == 0) {
@@ -294,7 +303,7 @@ public class GameController implements ActionListener {
                 Piece piece = box.getPiece();
                 // Need update Icon here
                 if (squares[y][x].getPiece() != null){
-                    buttons[y][x].setIcon(loadImage(piece.getIcon()));
+                    buttons[y][x].setIcon(loadImage(piece.getIcon(currentTurn)));
                 }else{
                     buttons[y][x].setIcon(null);
                 }

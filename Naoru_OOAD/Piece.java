@@ -33,7 +33,7 @@ abstract class Piece {
     }
     public abstract boolean validMove(ChessBoard board, Square from, Square to);
 
-    public abstract String getIcon(); // TODO: need to change to Icon
+    public abstract String getIcon(int currentTurn); // TODO: need to change to Icon
 }
 
 
@@ -63,7 +63,7 @@ class Sun extends Piece {
         return false;
     }
 
-    public String getIcon(){
+    public String getIcon(int currentTurn){
         if(isBlue()){
             return "BlueSun.png";
         }
@@ -94,11 +94,21 @@ class Chevron extends Piece {
         return false;
     }
     
-    public String getIcon(){
+    public String getIcon(int currentTurn){
         if(isBlue()){
-            return "BlueChevron.png";
+            if(currentTurn == 0){
+                return "BlueChevron-reverse.png";
+            } else {
+                return "BlueChevron.png";
+            }
+        } else {
+            if(currentTurn == 0){
+                return "RedChevron.png";
+            } else {
+                return "RedChevron-reverse.png";
+            }
         }
-        return "RedChevron.png";
+        
     }
 }
 
@@ -125,11 +135,21 @@ class Triangle extends Piece {
         return false;
     }
 
-    public String getIcon(){
+    public String getIcon(int currentTurn){
         if(isBlue()){
-            return "BlueTriangle.png";
+            if(currentTurn == 0){
+                return "BlueTriangle-reverse.png";
+            } else {
+                return "BlueTriangle.png";
+            }
+        } else {
+            if(currentTurn == 0){
+                return "RedTriangle.png";
+            } else {
+                return "RedTriangle-reverse.png";
+            }
         }
-        return "RedTriangle.png";
+        
     }
 }
 
@@ -156,7 +176,7 @@ class Plus extends Piece {
         return false;
     }
 
-    public String getIcon(){
+    public String getIcon(int currentTurn){
         if(isBlue()){
             return "BluePlus.png";
         }
@@ -216,17 +236,30 @@ class Arrow extends Piece {
         }
     }
 
-    public String getIcon(){
+    public String getIcon(int currentTurn){
         if(isBlue()){
-            if(reachedEnd){
+            if(currentTurn == 0){
+                if(reachedEnd){
+                    return "BlueArrow.png";
+                }
                 return "BlueArrow-reverse.png";
+            } else {
+                if(reachedEnd){
+                    return "BlueArrow-reverse.png";
+                }
+                return "BlueArrow.png";
             }
-            return "BlueArrow.png";
         }
-
-        if(reachedEnd){
+        if(currentTurn == 0){
+            if(reachedEnd){
+                return "RedArrow-reverse.png";
+            }
+            return "RedArrow.png";
+        } else {
+            if(reachedEnd){
+                return "RedArrow.png";
+            }
             return "RedArrow-reverse.png";
         }
-        return "RedArrow.png";
     }
 }
