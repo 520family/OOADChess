@@ -61,7 +61,7 @@ public class GameController implements ActionListener {
 
         try {
              PrintWriter fout = new PrintWriter(file);
-            fout.println(currentTurn);
+            fout.println(currentTurn + " " + p1Moves + " " + p2Moves );
             for(int y = 0 ; y < 8 ; y++){
                 for(int x = 0; x < 7 ; x++){
                     if(board.getBox(x, y).getPiece() != null){
@@ -80,7 +80,6 @@ public class GameController implements ActionListener {
     }
 
     public void loadGame(){
-        PieceFactory pieceFactory = new PieceFactory();
         File file = new File("SaveGame.txt");
         int x;
         int y;
@@ -89,7 +88,9 @@ public class GameController implements ActionListener {
         try {
            Scanner scan = new Scanner(file); 
            currentTurn = scan.nextInt();
-           while(scan.hasNextLine()){
+           p1Moves = scan.nextInt();
+           p2Moves = scan.nextInt();
+           while(scan.hasNext()){
                 x = scan.nextInt();
                 y = scan.nextInt();
                 name = scan.next();
@@ -97,19 +98,15 @@ public class GameController implements ActionListener {
                if(!name.equals("empty")){
                     bool = scan.nextBoolean();
                     System.out.println(bool);
-                    board.getBox(x, y).setPiece(pieceFactory.makePiece(name,bool));
+                    board.getBox(x, y).setPiece(PieceFactory.makePiece(name,bool));
                } else {
                     board.getBox(x, y).setPiece(null);
                }
-               
            }
            scan.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Error");
-        } catch(NoSuchElementException e){
-            System.out.println("Here");
-        }
-
+            JOptionPane.showMessageDialog(null, "File Not Found.");
+        } 
     }
     
     private void initialize(Player p1, Player p2) {
@@ -350,7 +347,7 @@ public class GameController implements ActionListener {
                 endX = x;
                 endY = y;
                 firstClick = 0;
-                boolean moved = movePiece(startX,startY,endX,endY);   
+                movePiece(startX,startY,endX,endY);   
             }
         }
     }
