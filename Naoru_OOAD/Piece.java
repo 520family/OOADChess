@@ -1,5 +1,7 @@
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 abstract class Piece {
     private boolean dead = false;
     private boolean blue = false;
@@ -240,7 +242,7 @@ class Arrow extends Piece {
                 
                 if((y == 1 || y == 2) && x == 0){
                     if(y==2 && board.getBox(from.getX(),from.getY()+1).getPiece()!=null){
-                        System.out.println("you cant jump over other chess piece");
+                        JOptionPane.showConfirmDialog(null,"you cant jump over other chess piece");
                         return false;}
                  
                     return true; 
