@@ -1,7 +1,5 @@
 import java.util.*;
 
-import javax.swing.JOptionPane;
-
 abstract class Piece {
     private boolean dead = false;
     private boolean blue = false;
@@ -171,10 +169,39 @@ class Plus extends Piece {
 
         int x = Math.abs(from.getX() - to.getX());
         int y = Math.abs(from.getY() - to.getY());
-        if ((x >= 1 && y == 0) || (x == 0 && y >= 1)) {
-            return true;
+        if((from.getX() - to.getX()) > 0 || (from.getY() - to.getY()) > 0){
+            if ((x == 0 && y >= 1)) {
+                for(int i = 1; i <= y;  i++){
+                    if(board.getBox(from.getX(), from.getY() - i).getPiece() != null){
+                        return false;
+                    }
+                }
+                return true;
+            }else if((x >= 1 && y == 0)){
+                for(int i = 1; i <= x;  i++){
+                    if(board.getBox(from.getX() - i, from.getY()).getPiece() != null){
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }else if((from.getX() - to.getX()) < 0 || (from.getY() - to.getY()) < 0){
+             if (x == 0 && (from.getY() - to.getY()) <= -1) {
+                for(int i = y; i > 0;  i--){
+                    if(board.getBox(from.getX(), from.getY() + i).getPiece() != null){
+                        return false;
+                    }
+                }
+                return true;
+            }else if((from.getX() - to.getX()) <= -1 && y == 0){
+                for(int i = x; i > 0;  i--){
+                    if(board.getBox(from.getX() + i, from.getY()).getPiece() != null){
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
-
         return false;
     }
 
@@ -218,10 +245,8 @@ class Arrow extends Piece {
                 y = Math.abs(y);
                 if((y == 1 || y == 2) && x == 0){
                      if (y==2 && board.getBox(from.getX(),from.getY()-1).getPiece()!=null){
-                         System.out.println("you cant jump over other chess piece");
                         return false;
                     }else if (y==2 && board.getBox(from.getX(),from.getY()+1).getPiece()!=null){
-                         System.out.println("you cant jump over other chess piece");
                         return false;}
                     return true; 
                 }
@@ -231,7 +256,6 @@ class Arrow extends Piece {
             if(y > 0){ // Going forward
                 if((y == 1 || y == 2) && x == 0){
                     if (y==2 && board.getBox(from.getX(),from.getY()-1).getPiece()!=null){
-                        System.out.println("you cant jump over other chess piece");
                         return false;
                     }
                     return true; 
@@ -242,7 +266,6 @@ class Arrow extends Piece {
                 
                 if((y == 1 || y == 2) && x == 0){
                     if(y==2 && board.getBox(from.getX(),from.getY()+1).getPiece()!=null){
-                        JOptionPane.showConfirmDialog(null,"you cant jump over other chess piece");
                         return false;}
                  
                     return true; 
