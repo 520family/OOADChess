@@ -265,7 +265,7 @@ public class GameController implements ActionListener {
 
         this.piecesSwitching();
         this.switchCurrentPlayer();
-        //this.Flipboard();
+        this.Flipboard();
         this.updateVisual();
         return true;
 

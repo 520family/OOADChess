@@ -210,29 +210,49 @@ class Arrow extends Piece {
         int x = from.getX() - to.getX(); 
         int y = from.getY() - to.getY();
 
+        System.out.print(reachedEnd);
+        System.out.print(from.getX() + " " + from.getY());
+        System.out.print(to.getX() + " " + to.getY());
         if(reachedEnd){
-            if(y < 0){ // Going backwards
-                x = Math.abs(x);
-                y = Math.abs(y);
-                if((y == 1 || y == 2) && x == 0){
-                    return true; 
+            if(y > 0){ // red going forward, blue going backward
+                if(isBlue()){
+                    if((y == 1 || y == 2) && x == 0){
+                        return true; 
+                    }
+                    return false;
+                } else {
+                    return false;
+                }
+            } else { // blue going forward, red going backward
+                if(isBlue()){
+                    return false;
+                } else {
+                    if((y == -1 || y == -2) && x == 0){
+                        return true; 
+                    }
+                    return false;
                 }
             }
-            return false;
         } else {
-            if(y > 0){ // Going forward
-                if((y == 1 || y == 2) && x == 0){
-                    return true; 
+            if(y > 0){ // red going forward, blue going backward
+                if(isBlue()){
+                    return false;
+                } else {
+                    if((y == 1 || y == 2) && x == 0){
+                        return true; 
+                    }
+                    return false;
                 }
-            } else if(y < 0){ // Going backwards
-                x = Math.abs(x);
-                y = Math.abs(y);
-                
-                if((y == 1 || y == 2) && x == 0){
-                    return true; 
+            } else { // blue going forward, red going backward
+                if(isBlue()){
+                    if((y == -1 || y == -2) && x == 0){
+                        return true; 
+                    }
+                    return false;
+                } else {
+                    return false;
                 }
             }
-            return false;
         }
     }
 
