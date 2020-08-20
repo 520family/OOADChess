@@ -35,7 +35,7 @@ class ChessBoard
         boxes[0][4] = new Square(4, 0, new Chevron(true));
         boxes[0][5] = new Square(5, 0, new Triangle(true));
         boxes[0][6] = new Square(6, 0, new Plus(true));
-        boxes[1][0] = new Square(1, 1, new Arrow(true));
+        boxes[1][0] = new Square(0, 1, new Arrow(true));
         boxes[1][2] = new Square(2, 1, new Arrow(true));
         boxes[1][4] = new Square(4, 1, new Arrow(true));
         boxes[1][6] = new Square(6, 1, new Arrow(true));
