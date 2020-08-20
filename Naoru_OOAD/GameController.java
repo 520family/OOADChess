@@ -60,7 +60,8 @@ public class GameController implements ActionListener {
         File file = new File("SaveGame.txt");
 
         try {
-            PrintWriter fout = new PrintWriter(file);
+             PrintWriter fout = new PrintWriter(file);
+            fout.println(currentTurn);
             for(int y = 0 ; y < 8 ; y++){
                 for(int x = 0; x < 7 ; x++){
                     if(board.getBox(x, y).getPiece() != null){
@@ -70,7 +71,7 @@ public class GameController implements ActionListener {
                     }
                 }
             }
-            fout.println(currentTurn);
+            
             fout.close();
             
         } catch (FileNotFoundException e) {
@@ -87,6 +88,7 @@ public class GameController implements ActionListener {
         boolean bool;
         try {
            Scanner scan = new Scanner(file); 
+           currentTurn = scan.nextInt();
            while(scan.hasNextLine()){
                 x = scan.nextInt();
                 y = scan.nextInt();
@@ -99,6 +101,7 @@ public class GameController implements ActionListener {
                } else {
                     board.getBox(x, y).setPiece(null);
                }
+               
            }
            scan.close();
         } catch (FileNotFoundException e) {
