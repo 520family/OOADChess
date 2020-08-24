@@ -169,10 +169,39 @@ class Plus extends Piece {
 
         int x = Math.abs(from.getX() - to.getX());
         int y = Math.abs(from.getY() - to.getY());
-        if ((x >= 1 && y == 0) || (x == 0 && y >= 1)) {
-            return true;
+        if((from.getX() - to.getX()) > 0 || (from.getY() - to.getY()) > 0){
+            if ((x == 0 && y >= 1)) {
+                for(int i = 1; i <= y;  i++){
+                    if(board.getBox(from.getX(), from.getY() - i).getPiece() != null){
+                        return false;
+                    }
+                }
+                return true;
+            }else if((x >= 1 && y == 0)){
+                for(int i = 1; i <= x;  i++){
+                    if(board.getBox(from.getX() - i, from.getY()).getPiece() != null){
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }else if((from.getX() - to.getX()) < 0 || (from.getY() - to.getY()) < 0){
+             if (x == 0 && (from.getY() - to.getY()) <= -1) {
+                for(int i = y; i > 0;  i--){
+                    if(board.getBox(from.getX(), from.getY() + i).getPiece() != null){
+                        return false;
+                    }
+                }
+                return true;
+            }else if((from.getX() - to.getX()) <= -1 && y == 0){
+                for(int i = x; i > 0;  i--){
+                    if(board.getBox(from.getX() + i, from.getY()).getPiece() != null){
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
-
         return false;
     }
 
@@ -210,9 +239,6 @@ class Arrow extends Piece {
         int x = from.getX() - to.getX(); 
         int y = from.getY() - to.getY();
 
-        System.out.print(reachedEnd);
-        System.out.print(from.getX() + " " + from.getY());
-        System.out.print(to.getX() + " " + to.getY());
         if(reachedEnd){
             if(y > 0){ // red going forward, blue going backward
                 if(isBlue()){
