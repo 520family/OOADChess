@@ -146,8 +146,25 @@ class Triangle extends Piece {
                 j--;
                 }
                return true;
-            
         }
+         else if( x > 0 && Math.abs(x) == Math.abs(y) && y < 0){
+            int j = from.getY()+1;
+            for( int i = from.getX()-1 ; i > to.getX() ; i--){
+                if (board.getBox(i,j).getPiece()!=null){
+                    return false;}
+                j++;
+                }
+               return true;  
+        }
+        else if (x < 0 && Math.abs(x) == Math.abs(y) && y < 0){
+        int j = from.getY()+1;
+        for( int i = from.getX()+1 ; i < to.getX() ; i++){
+                if (board.getBox(i,j).getPiece()!=null){
+                    return false;}
+                j++;
+                }  
+              return true;
+            }
     }
        else if (isBlue()){
         if (x > 0 && Math.abs(x) == Math.abs(y)){
