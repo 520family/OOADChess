@@ -128,8 +128,65 @@ class Triangle extends Piece {
 
         int x = Math.abs(from.getX() - to.getX());
         int y = Math.abs(from.getY() - to.getY());
-        if (x == y && x >= 1) {
-            return true;
+        if (!isBlue()){
+        if (x < 0 && Math.abs(x) == Math.abs(y) && y > 0){
+        int j = from.getY()-1;
+        for( int i = from.getX()+1 ; i < to.getX() ; i++){
+                if (board.getBox(i,j).getPiece()!=null){
+                    return false;}
+                j--;
+                }  
+              return true;
+            }
+        else if(x > 0 && Math.abs(x) == Math.abs(y) && y > 0){
+            int j = from.getY()-1;
+            for( int i = from.getX()-1 ; i > to.getX() ; i--){
+                if (board.getBox(i,j).getPiece()!=null){
+                    return false;}
+                j--;
+                }
+               return true;
+            }
+        else if( x > 0 && Math.abs(x) == Math.abs(y) && y < 0){
+            int j = from.getY()+1;
+            for( int i = from.getX()-1 ; i > to.getX() ; i--){
+                if (board.getBox(i,j).getPiece()!=null){
+                    return false;}
+                j++;
+                }
+               return true;  
+        }
+        else if (x < 0 && Math.abs(x) == Math.abs(y) && y < 0){
+        int j = from.getY()+1;
+        for( int i = from.getX()+1 ; i < to.getX() ; i++){
+                if (board.getBox(i,j).getPiece()!=null){
+                    return false;}
+                j++;
+                }  
+              return true;
+            }
+    }
+       else if (isBlue()){
+        if (x > 0 && Math.abs(x) == Math.abs(y)){
+               int j = from.getY()+1;
+               for(int i = from.getX()-1 ; i > to.getX() ; i--  ){
+                if (board.getBox(i,j).getPiece()!=null){
+                    return false;
+                }
+                j++;
+                }  
+              return true;
+            }
+        else if(x < 0 && Math.abs(x)==Math.abs(y)){
+            int j = from.getY()+1;
+            for(int i = from.getX()+1 ; i < to.getX() ; i++){
+                if (board.getBox(i,j).getPiece()!=null){
+                    return false;
+                }
+                j++;
+                }
+               return true;  
+        }    
         }
 
         return false;
