@@ -205,14 +205,14 @@ class Plus extends Piece {
         int y = Math.abs(from.getY() - to.getY());
         if((from.getX() - to.getX()) > 0 || (from.getY() - to.getY()) > 0){
             if ((x == 0 && y >= 1)) {
-                for(int i = 1; i <= y;  i++){
+                for(int i = 1; i <= y-1;  i++){
                     if(board.getBox(from.getX(), from.getY() - i).getPiece() != null){
                         return false;
                     }
                 }
                 return true;
             }else if((x >= 1 && y == 0)){
-                for(int i = 1; i <= x;  i++){
+                for(int i = 1; i <= x-1;  i++){
                     if(board.getBox(from.getX() - i, from.getY()).getPiece() != null){
                         return false;
                     }
@@ -221,14 +221,14 @@ class Plus extends Piece {
             }
         }else if((from.getX() - to.getX()) < 0 || (from.getY() - to.getY()) < 0){
              if (x == 0 && (from.getY() - to.getY()) <= -1) {
-                for(int i = y; i > 0;  i--){
+                for(int i = y-1; i > 0;  i--){
                     if(board.getBox(from.getX(), from.getY() + i).getPiece() != null){
                         return false;
                     }
                 }
                 return true;
             }else if((from.getX() - to.getX()) <= -1 && y == 0){
-                for(int i = x; i > 0;  i--){
+                for(int i = x-1; i > 0;  i--){
                     if(board.getBox(from.getX() + i, from.getY()).getPiece() != null){
                         return false;
                     }
