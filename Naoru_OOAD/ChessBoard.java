@@ -58,23 +58,23 @@ class ChessBoard
         return boxes;
     }
 
-    public Square[][] getUpperHalfBox() {
+    public Piece[][] getReversedUpperPieces() {
 
-        Square[][] tempbox = new Square [4][7];
-        for(int y = 0; y < 4; y++){
-            for(int x = 0; x < 7; x++){
-                tempbox[y][x] = boxes[y][x];
+        Piece[][] tempbox = new Piece [4][7];
+        for(int y = 3; y >= 0; y--){
+            for(int x = 6; x >= 0; x--){
+                tempbox[3-y][x] = boxes[y][x].getPiece();
             }
         }
         return tempbox;
     }
 
-    public Square[][] getLowerHalfBox() {
+    public Piece[][] getReversedLowerPieces() {
 
-        Square[][] tempbox = new Square [4][7];
-        for(int y = 0; y < 4; y++){
-            for(int x = 0; x < 7; x++){
-                tempbox[y][x] = boxes[y+4][x];
+        Piece[][] tempbox = new Piece [4][7];
+        for(int y = 3; y >= 0; y--){
+            for(int x = 6; x >= 0; x--){
+                tempbox[3-y][x] = boxes[y+4][x].getPiece();
             }
         }
         return tempbox;

@@ -270,18 +270,18 @@ public class GameController implements ActionListener {
     }
 
     public void Flipboard(){
-        Square[][] UpperSquares = board.getUpperHalfBox();
-        Square[][] LowerSquares = board.getLowerHalfBox();
+        Piece[][] UpperPieces = board.getReversedUpperPieces();
+        Piece[][] LowerPieces = board.getReversedLowerPieces();
         
-        for(int y = 3; y >= 0; y--){
+        for(int y = 0; y < 4; y++){
             for(int x = 0; x < 7; x++){
-                board.SetBoxes(x, Math.abs(3-y), LowerSquares[y][x]);
+                board.getBox(x, y).setPiece(LowerPieces[y][x]);
             }
         }
  
-        for(int y = 0; y < 4; y++){
+        for(int y = 4; y < 8; y++){
             for(int x = 0; x < 7; x++){
-                board.SetBoxes(x, 7-y, UpperSquares[y][x]);
+                board.getBox(x, y).setPiece(UpperPieces[Math.abs(4-y)][x]);
             }
         }
 
@@ -346,6 +346,7 @@ public class GameController implements ActionListener {
                 endX = x;
                 endY = y;
                 System.out.println("End: " + endX + " " + endY);
+                System.out.println(board.getBox(startX, startY).getX() + " " + board.getBox(startX, startY).getY());
                 firstClick = 0;
                 movePiece(startX,startY,endX,endY);   
             }
