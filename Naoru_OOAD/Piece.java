@@ -240,38 +240,59 @@ class Arrow extends Piece {
         int y = from.getY() - to.getY();
 
         if(reachedEnd){
-            if(y < 0){ // Going backwards
-                x = Math.abs(x);
-                y = Math.abs(y);
-                if((y == 1 || y == 2) && x == 0){
-                     if (y==2 && board.getBox(from.getX(),from.getY()-1).getPiece()!=null){
+            if(y < 0){ // blue going forward, red going backward
+                if((Math.abs(y) == 1 || Math.abs(y) == 2) && x == 0){
+                    if (Math.abs(y)==2 && board.getBox(from.getX(),from.getY()+1).getPiece()!=null){
                         return false;
-                    }else if (y==2 && board.getBox(from.getX(),from.getY()+1).getPiece()!=null){
-                        return false;}
-                    return true; 
+                    }
+
+                    if(isBlue()){
+                        return false;
+                    } else {
+                        if((y == -1 || y == -2) && x == 0){
+                            return true; 
+                        }
+                        return false;
+                    }
                 }
-            }
-            return false;
-        } else {
-            if(y > 0){ // Going forward
+                return false;
+            } else { // red going forward, blue going backward
                 if((y == 1 || y == 2) && x == 0){
                     if (y==2 && board.getBox(from.getX(),from.getY()-1).getPiece()!=null){
                         return false;
                     }
-                    return true; 
+
+                    return isBlue();
                 }
-            } else if(y < 0){ // Going backwards
-                x = Math.abs(x);
-                y = Math.abs(y);
-                
-                if((y == 1 || y == 2) && x == 0){
-                    if(y==2 && board.getBox(from.getX(),from.getY()+1).getPiece()!=null){
-                        return false;}
-                 
-                    return true; 
-                }
+                return false;
             }
-            return false;
+        } else {
+            if(y > 0){ // red going forward, blue going backward
+                if((y == 1 || y == 2) && x == 0){
+                    if (y==2 && board.getBox(from.getX(),from.getY()-1).getPiece()!=null){
+                        return false;
+                    }
+
+                    return !isBlue();
+                }
+                return false;
+            } else { // blue going forward, red going backward
+                if((Math.abs(y) == 1 || Math.abs(y) == 2) && x == 0){
+                    if(Math.abs(y)==2 && board.getBox(from.getX(),from.getY()+1).getPiece()!=null){
+                        return false;
+                    }
+                    
+                    if(isBlue()){
+                        if((y == -1 || y == -2) && x == 0){
+                            return true; 
+                        }
+                        return false;
+                    } else {
+                        return false;
+                    }
+                }
+                return false;
+            }
         }
     }
 
