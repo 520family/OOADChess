@@ -87,6 +87,45 @@ class Chevron extends Piece {
 
         int x = Math.abs(from.getX() - to.getX()); 
         int y = Math.abs(from.getY() - to.getY()); 
+        
+
+        return false;
+    }
+    
+    public String getIcon(int currentTurn){
+        if(isBlue()){
+            if(currentTurn == 0){
+                return "BlueChevron-reverse.png";
+            } else {
+                return "BlueChevron.png";
+            }
+        } else {
+            if(currentTurn == 0){
+                return "RedChevron.png";
+            } else {
+                return "RedChevron-reverse.png";
+            }
+        }
+        
+    }
+}
+
+
+class Triangle extends Piece {
+    public Triangle(boolean blue) {
+        super(blue,"Triangle");
+    }
+
+    public boolean validMove(ChessBoard board, Square from, Square to) {
+        // check if piece killing his ally
+        if(to.getPiece() != null){
+            if (to.getPiece().isBlue() == this.isBlue()) {
+                return false;
+            }
+        } 
+
+        int x = Math.abs(from.getX() - to.getX());
+        int y = Math.abs(from.getY() - to.getY());
         if (!isBlue()){
         if (x < 0 && Math.abs(x) == Math.abs(y) && y > 0){
         int j = from.getY()-1;
@@ -146,47 +185,6 @@ class Chevron extends Piece {
                 }
                return true;  
         }    
-        }
-
-        return false;
-    }
-    
-    public String getIcon(int currentTurn){
-        if(isBlue()){
-            if(currentTurn == 0){
-                return "BlueChevron-reverse.png";
-            } else {
-                return "BlueChevron.png";
-            }
-        } else {
-            if(currentTurn == 0){
-                return "RedChevron.png";
-            } else {
-                return "RedChevron-reverse.png";
-            }
-        }
-        
-    }
-}
-
-
-class Triangle extends Piece {
-    public Triangle(boolean blue) {
-        super(blue,"Triangle");
-    }
-
-    public boolean validMove(ChessBoard board, Square from, Square to) {
-        // check if piece killing his ally
-        if(to.getPiece() != null){
-            if (to.getPiece().isBlue() == this.isBlue()) {
-                return false;
-            }
-        } 
-
-        int x = Math.abs(from.getX() - to.getX());
-        int y = Math.abs(from.getY() - to.getY());
-        if (x == y && x >= 1) {
-            return true;
         }
 
         return false;
