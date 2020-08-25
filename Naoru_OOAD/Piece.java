@@ -87,7 +87,9 @@ class Chevron extends Piece {
 
         int x = Math.abs(from.getX() - to.getX()); 
         int y = Math.abs(from.getY() - to.getY()); 
-        
+        if(( x == 2 && y == 1 ) || ( x == 1 && y == 2 )){
+            return true; 
+        }
 
         return false;
     }
