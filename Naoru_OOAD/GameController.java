@@ -263,7 +263,7 @@ public class GameController implements ActionListener {
 
         this.piecesSwitching();
         this.switchCurrentPlayer();
-        //this.Flipboard();
+        this.Flipboard();
         this.updateVisual();
         return true;
 
@@ -272,7 +272,7 @@ public class GameController implements ActionListener {
     public void Flipboard(){
         Square[][] UpperSquares = board.getUpperHalfBox();
         Square[][] LowerSquares = board.getLowerHalfBox();
-
+        
         for(int y = 3; y >= 0; y--){
             for(int x = 0; x < 7; x++){
                 board.SetBoxes(x, Math.abs(3-y), LowerSquares[y][x]);
@@ -332,6 +332,7 @@ public class GameController implements ActionListener {
                 startX = x;
                 startY = y;
                 firstClick = 1;
+                System.out.println("startX: " + startX + " " + startY);
                 if(board.getBox(x,y).getPiece() == null){
                     firstClick = 0;
                 } else {
@@ -344,6 +345,7 @@ public class GameController implements ActionListener {
             } else if(firstClick == 1){
                 endX = x;
                 endY = y;
+                System.out.println("End: " + endX + " " + endY);
                 firstClick = 0;
                 movePiece(startX,startY,endX,endY);   
             }
