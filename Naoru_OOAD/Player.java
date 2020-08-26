@@ -13,4 +13,10 @@ public class Player{
     public void setSide(boolean side){
         this.blueSide = side;
     }
+    public String toString(){
+        if(blueSide){
+            return "blue";
+        }
+        return "red";
+    }
 }

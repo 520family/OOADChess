@@ -214,6 +214,9 @@ public class GameController implements ActionListener {
         Piece target = to.getPiece();
         if (target != null) {
             target.setDead(true);
+            if(target instanceof Sun){
+                this.endgame(currentTurn);
+            }
             // remove icon from GUI
             buttons[endY][endX].setIcon(loadImage(from.getPiece().getIcon(currentTurn)));
         }
@@ -254,6 +257,7 @@ public class GameController implements ActionListener {
                 }
             }*/
         }
+
 
         if (this.currentTurn == 0) {
             p1Moves += 1;
@@ -352,4 +356,19 @@ public class GameController implements ActionListener {
             }
         }
     }
+
+
+    public void endgame(int currentTurn){
+        gameGui.endGameMessage(this.getCurrentPlayer().toString());
+        this.restart();
+    }
+
+    public void restart(){
+        this.board.clearBoxes();
+        board.resetBoard();
+        this.currentTurn = 0;
+        p1Moves = 0;
+        p2Moves = 0;
+    }
+
 }

@@ -64,6 +64,10 @@ class GameGUI extends JFrame{
     public void ShowWrongPieceError(){
         JOptionPane.showMessageDialog(null, "You can't move your enemy piece!");
     }
+
+    public void endGameMessage(String player){
+        JOptionPane.showMessageDialog(null, "Player " + player + " win!");
+    }
 }
 
 
