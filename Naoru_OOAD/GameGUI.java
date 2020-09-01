@@ -18,7 +18,12 @@ class GameGUI extends JFrame implements ComponentListener{
         super("Assignment");
 	JPanel p = new JPanel(new FlowLayout((FlowLayout.LEFT)));
         JPanel jp = new JPanel(new GridLayout(8,7));
+<<<<<<< Updated upstream
 	buttons = new JButton [8][7];
+=======
+        JPanel instruction = new JPanel();
+	    buttons = new JButton [8][7];
+>>>>>>> Stashed changes
         start = new JButton("Start");
 	save = new JButton("Save");
         load = new JButton("Load");
@@ -36,10 +41,13 @@ class GameGUI extends JFrame implements ComponentListener{
                 jp.add(buttons[i][j]);
                 buttons[i][j].setBackground(Color.WHITE);
 	        }
-	    }     
+	    }
+        instruction.add(InstructionBoard()); 
+        JScrollPane temp = new JScrollPane(instruction);
+        add(temp, BorderLayout.EAST);    
 
         setVisible(true);
-        setSize(500,500);
+        setSize(1200,600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 	
@@ -73,10 +81,10 @@ class GameGUI extends JFrame implements ComponentListener{
     }
    
     public static Icon resizeIcon(Icon icon, int resizedWidth, int resizedHeight) {
-    ImageIcon imgIcon = (ImageIcon) icon;
-    Image img = imgIcon.getImage();  
-    Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
-    return new ImageIcon(resizedImage);
+        ImageIcon imgIcon = (ImageIcon) icon;
+        Image img = imgIcon.getImage();  
+        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
+        return new ImageIcon(resizedImage);
     }
 
     public JButton getStartButton(){
@@ -103,8 +111,16 @@ class GameGUI extends JFrame implements ComponentListener{
         JOptionPane.showMessageDialog(null, "You can't move your enemy piece!");
     }
 
+<<<<<<< Updated upstream
     public void endGameMessage(String player){
         JOptionPane.showMessageDialog(null, "Player " + player + " win!");
+=======
+    public JLabel InstructionBoard(){
+        ImageIcon i = new ImageIcon("instruction.png");
+        JLabel l = new JLabel(i);
+
+        return l;
+>>>>>>> Stashed changes
     }
 }
 
