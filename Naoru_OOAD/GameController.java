@@ -207,6 +207,7 @@ public class GameController implements ActionListener {
         Square to = board.getBox(endX, endY);
         
         if (!source.validMove(board, from, to)) {
+            gameGui.ShowInvalidMoveError();
             return false;
         }
  

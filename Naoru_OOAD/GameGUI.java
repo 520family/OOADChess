@@ -110,6 +110,10 @@ class GameGUI extends JFrame implements ComponentListener{
         JOptionPane.showMessageDialog(null, "You can't move your enemy piece!");
     }
 
+    public void ShowInvalidMoveError(){
+        JOptionPane.showMessageDialog(null, "This is an invalid move for the following piece!");
+    }
+
     public void endGameMessage(String player){
         JOptionPane.showMessageDialog(null, "Player " + player + " win!");
     }
