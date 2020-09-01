@@ -187,7 +187,7 @@ public class GameController implements ActionListener {
             JButton selected = buttons[startY][startX];
             selected.setBackground(new Color(255,255,255));
         }
-
+        //check if player click enemy pieces
         if(playerside != this.getCurrentPlayer().isBlueSide()) {
             gameGui.ShowWrongPieceError();
             return false;
