@@ -8,19 +8,15 @@ import javax.swing.event.*;
 //javac GameController.java GameGUI.java Piece.java ChessBoard.java Square.java Player.java
 
 public class GameController implements ActionListener {
-    private int game_id;
-    private ArrayList<Player> players = new ArrayList<>();
-    private int p1Moves = 0;
-    private int p2Moves = 0;
-    private int currentTurn = 0;
-    private ChessBoard board;
-    private Player winner;
-    private GameGUI gameGui;
+
     protected int firstClick = 0;   
     protected int startX;
     protected int startY;
     protected int endX;
     protected int endY;
+
+    private GameGUI gameGui;
+    private Game currentGame;
 
     public GameController() {
         gameGui = new GameGUI();
@@ -33,35 +29,27 @@ public class GameController implements ActionListener {
         gameGui.getLoadButton().setActionCommand("load");
 
     }
-    
-    public void actionPerformed(ActionEvent event){
-        if(event.getActionCommand() == "start"){
-            Player p1 = new Player(false);
-            Player p2 = new Player(true);
 
-            this.initialize(p1, p2);
-                
-            JButton[][] buttons = gameGui.getAllButtons();
+    public void startGame(){
+        if(currentGame == null){
+            currentGame = new Game();
+
             for(int y = 0; y < 8; y++){
                 for(int x = 0; x < 7; x++){
-                    buttons[y][x].addActionListener(new MoveListener(y,x));
+                    gameGui.getButton(x, y).addActionListener(new MoveListener(y,x));
                 }
             }
-        } else if(event.getActionCommand() == "save"){
-            saveGame();
-        } else if(event.getActionCommand() == "load"){
-            board.clearBoxes();
-            loadGame();
-            this.updateVisual();
+            updateVisual();
         }
     }
 
-    public void saveGame() {
+    public void saveGame(Game currentGame) {
         File file = new File("SaveGame.txt");
-
+        
         try {
-             PrintWriter fout = new PrintWriter(file);
-            fout.println(currentTurn + " " + p1Moves + " " + p2Moves );
+            PrintWriter fout = new PrintWriter(file);
+            fout.println(currentGame.getCurrentTurn() + " " + currentGame.getPlayer1Moves() + " " + currentGame.getPlayer2Moves());
+            ChessBoard board = currentGame.getBoard();
             for(int y = 0 ; y < 8 ; y++){
                 for(int x = 0; x < 7 ; x++){
                     if(board.getBox(x, y).getPiece() != null){
@@ -80,6 +68,7 @@ public class GameController implements ActionListener {
     }
 
     public void loadGame(){
+        currentGame = new Game();
         File file = new File("SaveGame.txt");
         int x;
         int y;
@@ -87,217 +76,32 @@ public class GameController implements ActionListener {
         boolean bool;
         try {
            Scanner scan = new Scanner(file); 
-           currentTurn = scan.nextInt();
-           p1Moves = scan.nextInt();
-           p2Moves = scan.nextInt();
+           currentGame.setCurrentTurn(scan.nextInt()); 
+           currentGame.setPlayer1Moves(scan.nextInt());
+           currentGame.setPlayer2Moves(scan.nextInt());
            while(scan.hasNext()){
                 x = scan.nextInt();
                 y = scan.nextInt();
                 name = scan.next();
                if(!name.equals("empty")){
                     bool = scan.nextBoolean();
-                    board.getBox(x, y).setPiece(PieceFactory.makePiece(name,bool));
+                    currentGame.getBoard().getBox(x, y).setPiece(PieceFactory.makePiece(name,bool));
                } else {
-                    board.getBox(x, y).setPiece(null);
+                currentGame.getBoard().getBox(x, y).setPiece(null);
                }
            }
            scan.close();
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "File Not Found.");
+            JOptionPane.showMessageDialog(null, "No save file found.");
         } 
-    }
-    
-    private void initialize(Player p1, Player p2) {
-        players.add(p1);
-        players.add(p2);
-
-        board = new ChessBoard();
-
-        this.updateVisual();
-        // movesPlayed.clear();
-    }
-
-    public void switchCurrentPlayer() {
-        this.currentTurn ^= 1;
-        System.out.println(this.currentTurn);
-    }
-
-    public Player getCurrentPlayer() {
-        return this.players.get(this.currentTurn);
-    }
-
-    public Player getWinner() {
-        return this.winner;
-    }
-
-    public void setWinner(Player winner) {
-        this.winner = winner;
-    }
-
-    public boolean isGameFinished() {
-        return this.winner == null;
-    }
-
-    public void piecesSwitching() {
-        ArrayList<Square> toPlus = new ArrayList<>();
-        ArrayList<Square> toTriangle = new ArrayList<>();
-        boolean sideState = false; // Save player’s side
-        Player player = null;
-        if(p1Moves > 0 && p1Moves % 2 == 0 && currentTurn == 0){
-            player = this.players.get(0);
-        }
-        if(p2Moves > 0 && p2Moves % 2 == 0  && currentTurn == 1){
-            player = this.players.get(1);
-        }
-        if (player instanceof Player) {
-            sideState = player.isBlueSide();
-            Square[][] allBox = board.getAllBox();
-            for (int i = 0; i < allBox.length; i++) {
-                for (int j = 0; j < allBox[i].length; j++) {
-                    Square box = allBox[i][j];
-                    Piece source = box.getPiece();
-                    if(source instanceof Piece){
-                        if (source.isBlue() == sideState) {
-                            if (source instanceof Triangle) {
-                                toPlus.add(box);
-                            } else if (source instanceof Plus) {
-                                toTriangle.add(box);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        for (Square plus : toPlus) {
-            plus.setPiece(PieceFactory.makePiece("Plus", sideState));
-        }
-        for (Square triangle : toTriangle) {
-            triangle.setPiece(PieceFactory.makePiece("Triangle", sideState));
-        }
-    }
-    
-    public boolean movePiece(int startX, int startY, int endX, int endY)
-    // return true when piece is moved and false otherwise
-    {
-        Piece source = board.getBox(startX, startY).getPiece();
-        JButton[][] buttons = gameGui.getAllButtons();
-        boolean playerside = board.getBox(startX, startY).getPiece().isBlue();
-
-        if(firstClick == 0){
-            JButton selected = buttons[startY][startX];
-            selected.setBackground(new Color(255,255,255));
-        }
-        //check if player click enemy pieces
-        if(playerside != this.getCurrentPlayer().isBlueSide()) {
-            gameGui.ShowWrongPieceError();
-            return false;
-
-        }
-        //to ensure if accidentally pressed on empty square nothing happen
-        try {
-            if (source.isBlue() != playerside) {
-                return false;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-
-
-        Square from = board.getBox(startX, startY);
-        Square to = board.getBox(endX, endY);
-        
-        if (!source.validMove(board, from, to)) {
-            gameGui.ShowInvalidMoveError();
-            return false;
-        }
- 
-        // Handle moves here
-        Piece target = to.getPiece();
-        if (target != null) {
-            target.setDead(true);
-            if(target instanceof Sun){
-                this.endgame(currentTurn);
-            }
-            // remove icon from GUI
-            buttons[endY][endX].setIcon(loadImage(from.getPiece().getIcon(currentTurn)));
-        }
-        buttons[startY][startX].setIcon(null);
-        to.setPiece(source);
-        from.setPiece(null);
-
-        if (source instanceof Arrow) {
-            // Handle arrow reaching end or some shit here
-            Arrow arrowPiece = (Arrow) source;
-
-            if(!arrowPiece.hasReachedEnd()){
-                if(endY == 0){
-                    arrowPiece.setReachedEnd(true);
-                }
-            } else {
-                if(endY == 7){
-                    arrowPiece.setReachedEnd(false);
-                }
-            }
-            /*if (!arrowPiece.hasReachedEnd() && !arrowPiece.isBlue()) {
-                if (endY == 0){
-                    arrowPiece.setReachedEnd(true);
-                }
-            }else if(!arrowPiece.hasReachedEnd() && arrowPiece.isBlue()){
-                if (endY == 7){
-                    arrowPiece.setReachedEnd(true);
-                }
-            }
-
-            if (arrowPiece.hasReachedEnd() && !arrowPiece.isBlue()) {
-                if (endY == 7){
-                    arrowPiece.setReachedEnd(false);
-                }
-            }else if(arrowPiece.hasReachedEnd() && arrowPiece.isBlue()){
-                if (endY == 0){
-                    arrowPiece.setReachedEnd(false);
-                }
-            }*/
-        }
-
-
-        if (this.currentTurn == 0) {
-            p1Moves += 1;
-        } else {
-            p2Moves += 1;
-        }
-
-        this.piecesSwitching();
-        this.switchCurrentPlayer();
-        this.Flipboard();
-        this.updateVisual();
-        return true;
-
-    }
-
-    public void Flipboard(){
-        Piece[][] UpperPieces = board.getReversedUpperPieces();
-        Piece[][] LowerPieces = board.getReversedLowerPieces();
-        
-        for(int y = 0; y < 4; y++){
-            for(int x = 0; x < 7; x++){
-                board.getBox(x, y).setPiece(LowerPieces[y][x]);
-            }
-        }
- 
-        for(int y = 4; y < 8; y++){
-            for(int x = 0; x < 7; x++){
-                board.getBox(x, y).setPiece(UpperPieces[Math.abs(4-y)][x]);
-            }
-        }
-
     }
 
     public void updateVisual(){
         JButton[][] buttons = gameGui.getAllButtons();
-        Square[][] squares = board.getAllBox();
+        Square[][] squares = currentGame.getBoard().getAllBox();
 
         JLabel turn = gameGui.getTurnLabel();
-        String side = currentTurn == 0 ? "Red" : "Blue";
+        String side = currentGame.getCurrentTurn() == 0 ? "Red" : "Blue";
         turn.setText(side + " turn");
 
         for(int y = 0; y < squares.length; y++){
@@ -306,7 +110,7 @@ public class GameController implements ActionListener {
                 Piece piece = box.getPiece();
                 // Need update Icon here
                 if (squares[y][x].getPiece() != null){
-                    buttons[y][x].setIcon(GameGUI.resizeIcon(loadImage(piece.getIcon(currentTurn)), buttons[y][x].getWidth(), buttons[y][x].getHeight()));
+                    buttons[y][x].setIcon(gameGui.resizeIcon(gameGui.loadImage(piece.getIcon(currentGame.getCurrentTurn())), buttons[y][x].getWidth(), buttons[y][x].getHeight()));
                 }else{
                     buttons[y][x].setIcon(null);
                 }
@@ -314,14 +118,19 @@ public class GameController implements ActionListener {
         }
     }
 
-    private ImageIcon loadImage(String paramString) {
-        Image image1 = (new ImageIcon(getClass().getResource(paramString))).getImage();
-        Image image2 = image1.getScaledInstance(62, 62, 4);
-        return new ImageIcon(image2);
-    }
-
     public static void main (String[] args){
         new GameController();
+    }
+
+    public void actionPerformed(ActionEvent event){
+        if(event.getActionCommand() == "start"){
+            startGame();
+        } else if(event.getActionCommand() == "save"){
+            saveGame(currentGame);
+        } else if(event.getActionCommand() == "load"){
+            loadGame();
+            updateVisual();
+        }
     }
 
     class MoveListener implements ActionListener{
@@ -337,8 +146,7 @@ public class GameController implements ActionListener {
                 startX = x;
                 startY = y;
                 firstClick = 1;
-                System.out.println("startX: " + startX + " " + startY);
-                if(board.getBox(x,y).getPiece() == null){
+                if(currentGame.getBoard().getBox(x,y).getPiece() == null){
                     firstClick = 0;
                 } else {
                     Object source = e.getSource();
@@ -350,26 +158,24 @@ public class GameController implements ActionListener {
             } else if(firstClick == 1){
                 endX = x;
                 endY = y;
-                System.out.println("End: " + endX + " " + endY);
-                System.out.println(board.getBox(startX, startY).getX() + " " + board.getBox(startX, startY).getY());
                 firstClick = 0;
-                movePiece(startX,startY,endX,endY);   
+                JButton selected = gameGui.getButton(startX, startY);
+                selected.setBackground(new Color(255,255,255));
+                int result = currentGame.movePiece(startX,startY,endX,endY);
+                switch(result){
+                    case Game.MOVE_ERROR_WRONG_MOVE:
+                        gameGui.ShowInvalidMoveError();
+                        break;
+                    case Game.MOVE_ERROR_WRONG_SIDE:
+                        gameGui.ShowWrongPieceError();
+                        break;
+                    case Game.GAME_END:
+                        gameGui.endGameMessage(currentGame.getCurrentPlayer().toString());
+                        currentGame.restart();
+                        break;
+                }
+                updateVisual();  
             }
         }
     }
-
-
-    public void endgame(int currentTurn){
-        gameGui.endGameMessage(this.getCurrentPlayer().toString());
-        this.restart();
-    }
-
-    public void restart(){
-        this.board.clearBoxes();
-        board.resetBoard();
-        this.currentTurn = 0;
-        p1Moves = 0;
-        p2Moves = 0;
-    }
-
 }

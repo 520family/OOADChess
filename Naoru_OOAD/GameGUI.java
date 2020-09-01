@@ -12,7 +12,6 @@ class GameGUI extends JFrame implements ComponentListener{
     private JButton save;
     private JButton load;
     private JLabel turn;
-    private int iconWidth, iconHeight;
 
 	public GameGUI(){
         super("Webale Chess");
@@ -32,12 +31,11 @@ class GameGUI extends JFrame implements ComponentListener{
         add(p, BorderLayout.NORTH);
         add(jp, BorderLayout.CENTER);
         this.addComponentListener(this);
-
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 7; j++){
-                    buttons[i][j] = new JButton();
-                    jp.add(buttons[i][j]);
-                    buttons[i][j].setBackground(Color.WHITE);
+                buttons[i][j] = new JButton();
+                jp.add(buttons[i][j]);
+                buttons[i][j].setBackground(Color.WHITE);
             }
         }
 
@@ -47,6 +45,7 @@ class GameGUI extends JFrame implements ComponentListener{
 
         setVisible(true);
         setSize(1200,600);
+        setMinimumSize(new Dimension(1000,500));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -61,8 +60,6 @@ class GameGUI extends JFrame implements ComponentListener{
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 7; j++){
                 if (buttons[i][j].getIcon()!=null){
-                    iconWidth = buttons[i][j].getWidth();
-                    iconHeight = buttons[i][j].getHeight();
                     buttons[i][j].setIcon(resizeIcon(buttons[i][j].getIcon(), buttons[i][j].getWidth(), buttons[i][j].getHeight()));
                 }
             }     
@@ -78,16 +75,13 @@ class GameGUI extends JFrame implements ComponentListener{
     public void componentHidden(ComponentEvent e) {
             // ignore
     }
-   
-    public static Icon resizeIcon(Icon icon, int resizedWidth, int resizedHeight) {
-        ImageIcon imgIcon = (ImageIcon) icon;
-        Image img = imgIcon.getImage();  
-        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
-        return new ImageIcon(resizedImage);
-    }
 
     public JButton getStartButton(){
         return start;
+    }
+
+    public JButton getButton(int x, int y){
+        return buttons[y][x];
     }
 
     public JButton[][] getAllButtons(){
@@ -123,5 +117,18 @@ class GameGUI extends JFrame implements ComponentListener{
         JLabel l = new JLabel(i);
 
         return l;
+    }
+
+    public Icon resizeIcon(Icon icon, int resizedWidth, int resizedHeight) {
+        ImageIcon imgIcon = (ImageIcon) icon;
+        Image img = imgIcon.getImage();  
+        Image resizedImage = img.getScaledInstance(resizedWidth, resizedHeight,  java.awt.Image.SCALE_SMOOTH);  
+        return new ImageIcon(resizedImage);
+    }
+
+    public ImageIcon loadImage(String paramString) {
+        Image image1 = (new ImageIcon(getClass().getResource(paramString))).getImage();
+        Image image2 = image1.getScaledInstance(62, 62, 4);
+        return new ImageIcon(image2);
     }
 }

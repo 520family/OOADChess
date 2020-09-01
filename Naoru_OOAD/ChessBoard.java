@@ -63,7 +63,7 @@ class ChessBoard
         Piece[][] tempbox = new Piece [4][7];
         for(int y = 3; y >= 0; y--){
             for(int x = 6; x >= 0; x--){
-                tempbox[3-y][x] = boxes[y][x].getPiece();
+                tempbox[3-y][6-x] = boxes[y][x].getPiece();
             }
         }
         return tempbox;
@@ -74,7 +74,7 @@ class ChessBoard
         Piece[][] tempbox = new Piece [4][7];
         for(int y = 3; y >= 0; y--){
             for(int x = 6; x >= 0; x--){
-                tempbox[3-y][x] = boxes[y+4][x].getPiece();
+                tempbox[3-y][6-x] = boxes[y+4][x].getPiece();
             }
         }
         return tempbox;
