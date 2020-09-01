@@ -4,6 +4,7 @@ abstract class Piece {
     private boolean dead = false;
     private boolean blue = false;
     private String name;
+    
     public Piece(boolean blue,String name) {
         this.setBlue(blue);
         this.setName(name);
@@ -31,9 +32,10 @@ abstract class Piece {
     public String getName(){
         return name;
     }
+
     public abstract boolean validMove(ChessBoard board, Square from, Square to);
 
-    public abstract String getIcon(int currentTurn); // TODO: need to change to Icon
+    public abstract String getIcon(int current_turn); 
 }
 
 
@@ -63,7 +65,7 @@ class Sun extends Piece {
         return false;
     }
 
-    public String getIcon(int currentTurn){
+    public String getIcon(int current_turn){
         if(isBlue()){
             return "BlueSun.png";
         }
@@ -94,15 +96,15 @@ class Chevron extends Piece {
         return false;
     }
     
-    public String getIcon(int currentTurn){
+    public String getIcon(int current_turn){
         if(isBlue()){
-            if(currentTurn == 0){
+            if(current_turn == 0){
                 return "BlueChevron-reverse.png";
             } else {
                 return "BlueChevron.png";
             }
         } else {
-            if(currentTurn == 0){
+            if(current_turn == 0){
                 return "RedChevron.png";
             } else {
                 return "RedChevron-reverse.png";
@@ -169,15 +171,15 @@ class Triangle extends Piece {
         return false;
     }
 
-    public String getIcon(int currentTurn){
+    public String getIcon(int current_turn){
         if(isBlue()){
-            if(currentTurn == 0){
+            if(current_turn == 0){
                 return "BlueTriangle-reverse.png";
             } else {
                 return "BlueTriangle.png";
             }
         } else {
-            if(currentTurn == 0){
+            if(current_turn == 0){
                 return "RedTriangle.png";
             } else {
                 return "RedTriangle-reverse.png";
@@ -239,7 +241,7 @@ class Plus extends Piece {
         return false;
     }
 
-    public String getIcon(int currentTurn){
+    public String getIcon(int current_turn){
         if(isBlue()){
             return "BluePlus.png";
         }
@@ -249,18 +251,18 @@ class Plus extends Piece {
 
 
 class Arrow extends Piece {
-    private boolean reachedEnd = false;
+    private boolean reached_end = false;
 
     public Arrow(boolean blue){
         super(blue,"Arrow");
     }
 
-    public void setReachedEnd(boolean value) {
-        this.reachedEnd = value;
+    public void setReached_End(boolean value) {
+        this.reached_end = value;
     }
 
-    public boolean hasReachedEnd() {
-        return this.reachedEnd;
+    public boolean hasReached_End() {
+        return this.reached_end;
     }
 
     public boolean validMove(ChessBoard board, Square from, Square to){
@@ -273,7 +275,7 @@ class Arrow extends Piece {
         int x = from.getX() - to.getX(); 
         int y = from.getY() - to.getY();
         
-        if(reachedEnd){
+        if(reached_end){
             if(y > 0){ // Going forward
                 return false;
             } else { // Going backward
@@ -304,27 +306,27 @@ class Arrow extends Piece {
         }
     }
 
-    public String getIcon(int currentTurn){
+    public String getIcon(int current_turn){
         if(isBlue()){
-            if(currentTurn == 0){
-                if(reachedEnd){
+            if(current_turn == 0){
+                if(reached_end){
                     return "BlueArrow.png";
                 }
                 return "BlueArrow-reverse.png";
             } else {
-                if(reachedEnd){
+                if(reached_end){
                     return "BlueArrow-reverse.png";
                 }
                 return "BlueArrow.png";
             }
         }
-        if(currentTurn == 0){
-            if(reachedEnd){
+        if(current_turn == 0){
+            if(reached_end){
                 return "RedArrow-reverse.png";
             }
             return "RedArrow.png";
         } else {
-            if(reachedEnd){
+            if(reached_end){
                 return "RedArrow.png";
             }
             return "RedArrow-reverse.png";

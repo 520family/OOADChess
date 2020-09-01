@@ -1,20 +1,20 @@
 public class PieceFactory {
-    public static Piece makePiece(String pieceName,boolean isBlue){
-        switch (pieceName) {
+    public static Piece makePiece(String piece_name,boolean is_blue){
+        switch (piece_name) {
             case "Sun":
-                return new Sun(isBlue);
+                return new Sun(is_blue);
                 
             case "Plus":
-                return new Plus(isBlue);
+                return new Plus(is_blue);
                
             case "Triangle":
-                return new Triangle(isBlue);
+                return new Triangle(is_blue);
                
             case "Chevron":
-                return new Chevron(isBlue);
+                return new Chevron(is_blue);
                 
             case "Arrow":
-                return new Arrow(isBlue);
+                return new Arrow(is_blue);
                 
             default:
                 return null;       

@@ -31,6 +31,7 @@ class GameGUI extends JFrame implements ComponentListener{
         add(p, BorderLayout.NORTH);
         add(jp, BorderLayout.CENTER);
         this.addComponentListener(this);
+
         for (int i = 0; i < 8; i++){
             for (int j = 0; j < 7; j++){
                 buttons[i][j] = new JButton();
@@ -39,7 +40,7 @@ class GameGUI extends JFrame implements ComponentListener{
             }
         }
 
-        instruction.add(InstructionBoard()); 
+        instruction.add(showInstructionBoard()); 
         JScrollPane temp = new JScrollPane(instruction);
         add(temp, BorderLayout.EAST);    
 
@@ -67,14 +68,10 @@ class GameGUI extends JFrame implements ComponentListener{
     }
 
     @Override
-    public void componentMoved(ComponentEvent e) {
-            // ignore
-    }
+    public void componentMoved(ComponentEvent e) {}
 
     @Override
-    public void componentHidden(ComponentEvent e) {
-            // ignore
-    }
+    public void componentHidden(ComponentEvent e) {}
 
     public JButton getStartButton(){
         return start;
@@ -100,11 +97,11 @@ class GameGUI extends JFrame implements ComponentListener{
         return turn;
     }
 
-    public void ShowWrongPieceError(){
+    public void showWrongPieceError(){
         JOptionPane.showMessageDialog(null, "You can't move your enemy piece!");
     }
 
-    public void ShowInvalidMoveError(){
+    public void showInvalidMoveError(){
         JOptionPane.showMessageDialog(null, "This is an invalid move for the following piece!");
     }
 
@@ -112,7 +109,7 @@ class GameGUI extends JFrame implements ComponentListener{
         JOptionPane.showMessageDialog(null, "Player " + player + " win!");
     }
 
-    public JLabel InstructionBoard(){
+    public JLabel showInstructionBoard(){
         ImageIcon i = new ImageIcon("instruction.png");
         JLabel l = new JLabel(i);
 

@@ -5,51 +5,49 @@ import javax.swing.*;
 import java.io.*;
 import javax.swing.event.*;
 
-//javac GameController.java GameGUI.java Piece.java ChessBoard.java Square.java Player.java
-
 public class GameController implements ActionListener {
 
-    protected int firstClick = 0;   
-    protected int startX;
-    protected int startY;
-    protected int endX;
-    protected int endY;
+    protected int first_click = 0;   
+    protected int start_x;
+    protected int start_y;
+    protected int end_x;
+    protected int end_y;
 
-    private GameGUI gameGui;
-    private Game currentGame;
+    private GameGUI game_gui;
+    private Game current_game;
 
     public GameController() {
-        gameGui = new GameGUI();
+        game_gui = new GameGUI();
 
-        gameGui.getStartButton().addActionListener(this);
-        gameGui.getStartButton().setActionCommand("start");
-        gameGui.getSaveButton().addActionListener(this);
-        gameGui.getSaveButton().setActionCommand("save");
-        gameGui.getLoadButton().addActionListener(this);
-        gameGui.getLoadButton().setActionCommand("load");
+        game_gui.getStartButton().addActionListener(this);
+        game_gui.getStartButton().setActionCommand("start");
+        game_gui.getSaveButton().addActionListener(this);
+        game_gui.getSaveButton().setActionCommand("save");
+        game_gui.getLoadButton().addActionListener(this);
+        game_gui.getLoadButton().setActionCommand("load");
 
     }
 
     public void startGame(){
-        if(currentGame == null){
-            currentGame = new Game();
-
+        if(current_game == null){
+            current_game = new Game();
+            game_gui.getStartButton().setVisible(false);
             for(int y = 0; y < 8; y++){
                 for(int x = 0; x < 7; x++){
-                    gameGui.getButton(x, y).addActionListener(new MoveListener(y,x));
+                    game_gui.getButton(x, y).addActionListener(new MoveListener(y,x));
                 }
             }
             updateVisual();
         }
     }
 
-    public void saveGame(Game currentGame) {
+    public void saveGame(Game current_game) {
         File file = new File("SaveGame.txt");
         
         try {
             PrintWriter fout = new PrintWriter(file);
-            fout.println(currentGame.getCurrentTurn() + " " + currentGame.getPlayer1Moves() + " " + currentGame.getPlayer2Moves());
-            ChessBoard board = currentGame.getBoard();
+            fout.println(current_game.getCurrent_Turn() + " " + current_game.getPlayer1Moves() + " " + current_game.getPlayer2Moves());
+            ChessBoard board = current_game.getBoard();
             for(int y = 0 ; y < 8 ; y++){
                 for(int x = 0; x < 7 ; x++){
                     if(board.getBox(x, y).getPiece() != null){
@@ -68,7 +66,7 @@ public class GameController implements ActionListener {
     }
 
     public void loadGame(){
-        currentGame = new Game();
+        current_game = new Game();
         File file = new File("SaveGame.txt");
         int x;
         int y;
@@ -76,19 +74,19 @@ public class GameController implements ActionListener {
         boolean bool;
         try {
            Scanner scan = new Scanner(file); 
-           currentGame.setCurrentTurn(scan.nextInt()); 
-           currentGame.setPlayer1Moves(scan.nextInt());
-           currentGame.setPlayer2Moves(scan.nextInt());
+           current_game.setCurrent_Turn(scan.nextInt()); 
+           current_game.setPlayer1Moves(scan.nextInt());
+           current_game.setPlayer2Moves(scan.nextInt());
            while(scan.hasNext()){
                 x = scan.nextInt();
                 y = scan.nextInt();
                 name = scan.next();
-               if(!name.equals("empty")){
+                if(!name.equals("empty")){
                     bool = scan.nextBoolean();
-                    currentGame.getBoard().getBox(x, y).setPiece(PieceFactory.makePiece(name,bool));
-               } else {
-                currentGame.getBoard().getBox(x, y).setPiece(null);
-               }
+                    current_game.getBoard().getBox(x, y).setPiece(PieceFactory.makePiece(name,bool));
+                } else {
+                    current_game.getBoard().getBox(x, y).setPiece(null);
+                }
            }
            scan.close();
         } catch (FileNotFoundException e) {
@@ -97,25 +95,27 @@ public class GameController implements ActionListener {
     }
 
     public void updateVisual(){
-        JButton[][] buttons = gameGui.getAllButtons();
-        Square[][] squares = currentGame.getBoard().getAllBox();
+        JButton[][] buttons = game_gui.getAllButtons();
+        Square[][] squares = current_game.getBoard().getAllBox();
 
-        JLabel turn = gameGui.getTurnLabel();
-        String side = currentGame.getCurrentTurn() == 0 ? "Red" : "Blue";
-        turn.setText(side + " turn");
+        JLabel turn = game_gui.getTurnLabel();
+        String side = current_game.getCurrent_Turn() == 0 ? "Red" : "Blue";
+        turn.setText(side + " Turn");
         turn.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-        if(currentTurn == 0){
-        turn.setForeground(Color.red);}
+        if(current_game.getCurrent_Turn() == 0){
+            turn.setForeground(Color.red);
+        }
         else{
-        turn.setForeground(Color.blue);}
+            turn.setForeground(Color.blue);
+        }
 
         for(int y = 0; y < squares.length; y++){
             for(int x = 0; x < squares[y].length; x++){
                 Square box = squares[y][x];
                 Piece piece = box.getPiece();
-                // Need update Icon here
+
                 if (squares[y][x].getPiece() != null){
-                    buttons[y][x].setIcon(gameGui.resizeIcon(gameGui.loadImage(piece.getIcon(currentGame.getCurrentTurn())), buttons[y][x].getWidth(), buttons[y][x].getHeight()));
+                    buttons[y][x].setIcon(game_gui.resizeIcon(game_gui.loadImage(piece.getIcon(current_game.getCurrent_Turn())), buttons[y][x].getWidth(), buttons[y][x].getHeight()));
                 }else{
                     buttons[y][x].setIcon(null);
                 }
@@ -131,7 +131,7 @@ public class GameController implements ActionListener {
         if(event.getActionCommand() == "start"){
             startGame();
         } else if(event.getActionCommand() == "save"){
-            saveGame(currentGame);
+            saveGame(current_game);
         } else if(event.getActionCommand() == "load"){
             loadGame();
             updateVisual();
@@ -141,18 +141,19 @@ public class GameController implements ActionListener {
     class MoveListener implements ActionListener{
         int x;
         int y;
+        
         public MoveListener(int y, int x){
             this.x = x;
             this.y = y;
         }
 
         public void actionPerformed(ActionEvent e){
-            if(firstClick == 0){
-                startX = x;
-                startY = y;
-                firstClick = 1;
-                if(currentGame.getBoard().getBox(x,y).getPiece() == null){
-                    firstClick = 0;
+            if(first_click == 0){
+                start_x = x;
+                start_y = y;
+                first_click = 1;
+                if(current_game.getBoard().getBox(x,y).getPiece() == null){
+                    first_click = 0;
                 } else {
                     Object source = e.getSource();
                     if(source instanceof JButton){
@@ -160,23 +161,24 @@ public class GameController implements ActionListener {
                         button.setBackground(Color.GREEN);
                     }
                 }
-            } else if(firstClick == 1){
-                endX = x;
-                endY = y;
-                firstClick = 0;
-                JButton selected = gameGui.getButton(startX, startY);
+            } else if(first_click == 1){
+                end_x = x;
+                end_y = y;
+                first_click = 0;
+                JButton selected = game_gui.getButton(start_x, start_y);
                 selected.setBackground(new Color(255,255,255));
-                int result = currentGame.movePiece(startX,startY,endX,endY);
+                int result = current_game.movePiece(start_x,start_y,end_x,end_y);
                 switch(result){
                     case Game.MOVE_ERROR_WRONG_MOVE:
-                        gameGui.ShowInvalidMoveError();
+                        game_gui.showInvalidMoveError();
                         break;
                     case Game.MOVE_ERROR_WRONG_SIDE:
-                        gameGui.ShowWrongPieceError();
+                        game_gui.showWrongPieceError();
                         break;
                     case Game.GAME_END:
-                        gameGui.endGameMessage(currentGame.getCurrentPlayer().toString());
-                        currentGame.restart();
+                        game_gui.endGameMessage(current_game.getCurrentPlayer().toString());
+                        current_game.restartGame();
+                        game_gui.getStartButton().setVisible(true);
                         break;
                 }
                 updateVisual();  

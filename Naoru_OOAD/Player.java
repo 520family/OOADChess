@@ -1,20 +1,20 @@
 public class Player{
     //boolean representation of player side, true as blue side and false for red side
-    private boolean blueSide;
+    private boolean blue_side;
     //constructor carry parameter of side
     public Player(boolean side){
         setSide(side);
     }
-    //getter for boolean blueSide
+    //getter for boolean blueside
     public boolean isBlueSide(){
-        return this.blueSide;
+        return this.blue_side;
     } 
-    //to set boolean value for variable blueSide of each player
+    //to set boolean value for variable blue_side of each player
     public void setSide(boolean side){
-        this.blueSide = side;
+        this.blue_side = side;
     }
     public String toString(){
-        if(blueSide){
+        if(blue_side){
             return "blue";
         }
         return "red";

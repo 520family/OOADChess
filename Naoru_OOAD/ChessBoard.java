@@ -20,14 +20,14 @@ class ChessBoard
 
     public void resetBoard()// this function is reset the pieces into their place
     { 
-        // initialize remain blank Square
+        // Initialize remain blank Square
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 7; x++) {
                 boxes[y][x] = new Square(x, y);
             }
         }
 
-        // initialize blue pieces
+        // Initialize blue pieces
         boxes[0][0] = new Square(0, 0, new Plus(true));
         boxes[0][1] = new Square(1, 0, new Triangle(true));
         boxes[0][2] = new Square(2, 0, new Chevron(true));
@@ -40,7 +40,7 @@ class ChessBoard
         boxes[1][4] = new Square(4, 1, new Arrow(true));
         boxes[1][6] = new Square(6, 1, new Arrow(true));
 
-        // initialize red pieces
+        // Initialize red pieces
         boxes[6][0] = new Square(0, 6, new Arrow(false));
         boxes[6][2] = new Square(2, 6, new Arrow(false));
         boxes[6][4] = new Square(4, 6, new Arrow(false));
@@ -80,7 +80,7 @@ class ChessBoard
         return tempbox;
     }
 
-    public void SetBoxes(int x, int y, Square square){
+    public void setBox(int x, int y, Square square){
         boxes[y][x] = square;
     }
      

@@ -10,19 +10,18 @@ public class Game {
     public static final int GAME_END = 5;
 
     private ArrayList<Player> players = new ArrayList<>();
-    private int p1Moves = 0;
-    private int p2Moves = 0;
-    private int currentTurn = 0;
+    private int p1_moves = 0;
+    private int p2_moves = 0;
+    private int current_turn = 0;
     private ChessBoard board;
-    private Player winner;
 
     public Game(){
         Player p1 = new Player(false);
         Player p2 = new Player(true);
-        this.initialize(p1, p2);
+        this.Initialize(p1, p2);
     }
 
-    public void initialize(Player p1, Player p2) {
+    public void Initialize(Player p1, Player p2) {
         players.add(p1);
         players.add(p2);
 
@@ -30,69 +29,56 @@ public class Game {
     }
 
     public void switchCurrentPlayer() {
-        this.currentTurn ^= 1;
+        this.current_turn ^= 1;
     }
 
     public Player getCurrentPlayer() {
-        return this.players.get(this.currentTurn);
+        return this.players.get(this.current_turn);
     }
 
-    public Player getWinner() {
-        return this.winner;
-    }
-
-    public void setWinner(Player winner) {
-        this.winner = winner;
-    }
-
-    public boolean isGameFinished() {
-        return this.winner == null;
-    }
-
-    public void piecesSwitching() {
-        ArrayList<Square> toPlus = new ArrayList<>();
-        ArrayList<Square> toTriangle = new ArrayList<>();
-        boolean sideState = false; // Save player’s side
+    public void switchPieces() {
+        ArrayList<Square> to_plus = new ArrayList<>();
+        ArrayList<Square> to_triangle = new ArrayList<>();
+        boolean sidestate = false; // Save player’s side
         Player player = null;
-        if(p1Moves > 0 && p1Moves % 2 == 0 && currentTurn == 0){
+        if(p1_moves > 0 && p1_moves % 2 == 0 && current_turn == 0){
             player = this.players.get(0);
         }
-        if(p2Moves > 0 && p2Moves % 2 == 0  && currentTurn == 1){
+        if(p2_moves > 0 && p2_moves % 2 == 0  && current_turn == 1){
             player = this.players.get(1);
         }
         if (player instanceof Player) {
-            sideState = player.isBlueSide();
+            sidestate = player.isBlueSide();
             Square[][] allBox = board.getAllBox();
             for (int i = 0; i < allBox.length; i++) {
                 for (int j = 0; j < allBox[i].length; j++) {
                     Square box = allBox[i][j];
                     Piece source = box.getPiece();
                     if(source instanceof Piece){
-                        if (source.isBlue() == sideState) {
+                        if (source.isBlue() == sidestate) {
                             if (source instanceof Triangle) {
-                                toPlus.add(box);
+                                to_plus.add(box);
                             } else if (source instanceof Plus) {
-                                toTriangle.add(box);
+                                to_triangle.add(box);
                             }
                         }
                     }
                 }
             }
         }
-        for (Square plus : toPlus) {
-            plus.setPiece(PieceFactory.makePiece("Plus", sideState));
+        for (Square plus : to_plus) {
+            plus.setPiece(PieceFactory.makePiece("Plus", sidestate));
         }
-        for (Square triangle : toTriangle) {
-            triangle.setPiece(PieceFactory.makePiece("Triangle", sideState));
+        for (Square triangle : to_triangle) {
+            triangle.setPiece(PieceFactory.makePiece("Triangle", sidestate));
         }
     }
     
-    public int movePiece(int startX, int startY, int endX, int endY)
+    public int movePiece(int start_x, int start_y, int end_x, int end_y)
     // return true when piece is moved and false otherwise
     {
-        Piece source = board.getBox(startX, startY).getPiece();
-        //JButton[][] buttons = gameGui.getAllButtons();
-        boolean playerside = board.getBox(startX, startY).getPiece().isBlue();
+        Piece source = board.getBox(start_x, start_y).getPiece();
+        boolean playerside = board.getBox(start_x, start_y).getPiece().isBlue();
 
         //check if player click enemy pieces
         if(playerside != this.getCurrentPlayer().isBlueSide()) {
@@ -109,8 +95,8 @@ public class Game {
         }
 
 
-        Square from = board.getBox(startX, startY);
-        Square to = board.getBox(endX, endY);
+        Square from = board.getBox(start_x, start_y);
+        Square to = board.getBox(end_x, end_y);
         
         if (!source.validMove(board, from, to)) {
             return MOVE_ERROR_WRONG_MOVE;
@@ -123,62 +109,40 @@ public class Game {
             if(target instanceof Sun){
                 return GAME_END;
             }
-            // remove icon from GUI
-            //buttons[endY][endX].setIcon(loadImage(from.getPiece().getIcon(currentTurn)));
         }
-        //buttons[startY][startX].setIcon(null);
+
         to.setPiece(source);
         from.setPiece(null);
 
         if (source instanceof Arrow) {
-            // Handle arrow reaching end or some shit here
-            Arrow arrowPiece = (Arrow) source;
+            Arrow arrow_piece = (Arrow) source;
 
-            if(!arrowPiece.hasReachedEnd()){
-                if(endY == 0){
-                    arrowPiece.setReachedEnd(true);
+            if(!arrow_piece.hasReached_End()){
+                if(end_y == 0){
+                    arrow_piece.setReached_End(true);
                 }
             } else {
-                if(endY == 7){
-                    arrowPiece.setReachedEnd(false);
+                if(end_y == 7){
+                    arrow_piece.setReached_End(false);
                 }
             }
-            /*if (!arrowPiece.hasReachedEnd() && !arrowPiece.isBlue()) {
-                if (endY == 0){
-                    arrowPiece.setReachedEnd(true);
-                }
-            }else if(!arrowPiece.hasReachedEnd() && arrowPiece.isBlue()){
-                if (endY == 7){
-                    arrowPiece.setReachedEnd(true);
-                }
-            }
-
-            if (arrowPiece.hasReachedEnd() && !arrowPiece.isBlue()) {
-                if (endY == 7){
-                    arrowPiece.setReachedEnd(false);
-                }
-            }else if(arrowPiece.hasReachedEnd() && arrowPiece.isBlue()){
-                if (endY == 0){
-                    arrowPiece.setReachedEnd(false);
-                }
-            }*/
         }
 
 
-        if (this.currentTurn == 0) {
-            p1Moves += 1;
+        if (this.current_turn == 0) {
+            p1_moves += 1;
         } else {
-            p2Moves += 1;
+            p2_moves += 1;
         }
 
-        this.piecesSwitching();
+        this.switchPieces();
         this.switchCurrentPlayer();
-        this.Flipboard();
+        this.flipBoard();
         return MOVE_SUCCESS;
 
     }
 
-    public void Flipboard(){
+    public void flipBoard(){
         Piece[][] UpperPieces = board.getReversedUpperPieces();
         Piece[][] LowerPieces = board.getReversedLowerPieces();
         
@@ -197,39 +161,39 @@ public class Game {
     }
 
     public void endGame(){
-        this.restart();
+        this.restartGame();
     }
 
-    public void restart(){
+    public void restartGame(){
         board.clearBoxes();
         board.resetBoard();
-        this.currentTurn = 0;
-        p1Moves = 0;
-        p2Moves = 0;
+        this.current_turn = 0;
+        p1_moves = 0;
+        p2_moves = 0;
     }
 
-    public void setCurrentTurn(int turn){
-        this.currentTurn = turn;
+    public void setCurrent_Turn(int turn){
+        this.current_turn = turn;
     }
 
-    public int getCurrentTurn(){
-        return currentTurn;
+    public int getCurrent_Turn(){
+        return current_turn;
     }
 
     public void setPlayer1Moves(int count){
-        this.p1Moves = count;
+        this.p1_moves = count;
     }
 
     public int getPlayer1Moves(){
-        return p1Moves;
+        return p1_moves;
     }
     
     public void setPlayer2Moves(int count){
-        this.p2Moves = count;
+        this.p2_moves = count;
     }
 
     public int getPlayer2Moves(){
-        return p2Moves;
+        return p2_moves;
     }
 
     public ChessBoard getBoard(){
