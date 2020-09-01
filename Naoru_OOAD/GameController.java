@@ -305,7 +305,7 @@ public class GameController implements ActionListener {
                 Piece piece = box.getPiece();
                 // Need update Icon here
                 if (squares[y][x].getPiece() != null){
-                    buttons[y][x].setIcon(loadImage(piece.getIcon(currentTurn)));
+                    buttons[y][x].setIcon(GameGUI.resizeIcon(loadImage(piece.getIcon(currentTurn)), buttons[y][x].getWidth(), buttons[y][x].getHeight()));
                 }else{
                     buttons[y][x].setIcon(null);
                 }
