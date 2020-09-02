@@ -93,10 +93,10 @@ public class GameController implements ActionListener {
                 }
             }
             scan.close();
+            updateVisual();
             game_gui.showLoadCompleteMessage();
             game_gui.getStartButton().setVisible(false);
             game_gui.getSaveButton().setVisible(true);
-            updateVisual();
         } catch (FileNotFoundException e) {
             game_gui.showLoadErrorMessage();
         } 
