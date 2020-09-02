@@ -43,32 +43,33 @@ public class GameController implements ActionListener {
     }
 
     public void saveGame(Game current_game) {
-        File file = new File("SaveGame.txt");
-        
-        try {
-            PrintWriter fout = new PrintWriter(file);
-            fout.println(current_game.getCurrent_Turn() + " " + current_game.getPlayer1Moves() + " " + current_game.getPlayer2Moves());
-            ChessBoard board = current_game.getBoard();
-            for(int y = 0 ; y < 8 ; y++){
-                for(int x = 0; x < 7 ; x++){
-                    if(board.getBox(x, y).getPiece() != null){
-                        fout.println(x +" "+ y +" "+board.getBox(x, y).getPiece().getName()+" "+board.getBox(x, y).getPiece().isBlue());
-                    } else {
-                        fout.println(x +" "+ y +" "+ "empty");
+        if(current_game == null){
+            game_gui.showSaveErrorMessage();
+        } else {
+            File file = new File("SaveGame.txt");
+            try {
+                PrintWriter fout = new PrintWriter(file);
+                fout.println(current_game.getCurrent_Turn() + " " + current_game.getPlayer1Moves() + " " + current_game.getPlayer2Moves());
+                ChessBoard board = current_game.getBoard();
+                for(int y = 0 ; y < 8 ; y++){
+                    for(int x = 0; x < 7 ; x++){
+                        if(board.getBox(x, y).getPiece() != null){
+                            fout.println(x +" "+ y +" "+board.getBox(x, y).getPiece().getName()+" "+board.getBox(x, y).getPiece().isBlue());
+                        } else {
+                            fout.println(x +" "+ y +" "+ "empty");
+                        }
                     }
                 }
+                
+                fout.close();
+                game_gui.showSaveCompleteMessage();
+            } catch (FileNotFoundException e) {
+                game_gui.showSaveErrorMessage();
             }
-            
-            fout.close();
-            game_gui.showSaveCompleteMessage();
-        } catch (FileNotFoundException e) {
-            game_gui.showSaveErrorMessage();
-            e.printStackTrace();
         }
     }
 
     public void loadGame(){
-        current_game = new Game();
         File file = new File("SaveGame.txt");
         int x;
         int y;
@@ -76,6 +77,7 @@ public class GameController implements ActionListener {
         boolean bool;
         try {
             Scanner scan = new Scanner(file); 
+            current_game = new Game();
             current_game.setCurrent_Turn(scan.nextInt()); 
             current_game.setPlayer1Moves(scan.nextInt());
             current_game.setPlayer2Moves(scan.nextInt());
@@ -94,6 +96,7 @@ public class GameController implements ActionListener {
             game_gui.showLoadCompleteMessage();
             game_gui.getStartButton().setVisible(false);
             game_gui.getSaveButton().setVisible(true);
+            updateVisual();
         } catch (FileNotFoundException e) {
             game_gui.showLoadErrorMessage();
         } 
@@ -139,7 +142,6 @@ public class GameController implements ActionListener {
             saveGame(current_game);
         } else if(event.getActionCommand() == "load"){
             loadGame();
-            updateVisual();
         }
     }
 
