@@ -109,6 +109,20 @@ class GameGUI extends JFrame implements ComponentListener{
         JOptionPane.showMessageDialog(null, "Player " + player + " win!");
     }
 
+    public void showSaveCompleteMessage(){
+        JOptionPane.showMessageDialog(null,"Save Completed.");
+    }
+
+    public void showLoadCompleteMessage(){
+        JOptionPane.showMessageDialog(null,"Load Successfully.");
+    }
+    public void showLoadErrorMessage(){
+        JOptionPane.showMessageDialog(null, "Load failed. No save file found.");
+    }    
+    public void showSaveErrorMessage(){
+        JOptionPane.showMessageDialog(null, "Save failed.");
+    }
+
     public JLabel showInstructionBoard(){
         ImageIcon i = new ImageIcon("instruction.png");
         JLabel l = new JLabel(i);

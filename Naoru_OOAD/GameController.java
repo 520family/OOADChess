@@ -59,8 +59,9 @@ public class GameController implements ActionListener {
             }
             
             fout.close();
-            
+            game_gui.showSaveCompleteMessage();
         } catch (FileNotFoundException e) {
+            game_gui.showSaveErrorMessage();
             e.printStackTrace();
         }
     }
@@ -73,11 +74,11 @@ public class GameController implements ActionListener {
         String name;
         boolean bool;
         try {
-           Scanner scan = new Scanner(file); 
-           current_game.setCurrent_Turn(scan.nextInt()); 
-           current_game.setPlayer1Moves(scan.nextInt());
-           current_game.setPlayer2Moves(scan.nextInt());
-           while(scan.hasNext()){
+            Scanner scan = new Scanner(file); 
+            current_game.setCurrent_Turn(scan.nextInt()); 
+            current_game.setPlayer1Moves(scan.nextInt());
+            current_game.setPlayer2Moves(scan.nextInt());
+            while(scan.hasNext()){
                 x = scan.nextInt();
                 y = scan.nextInt();
                 name = scan.next();
@@ -87,10 +88,11 @@ public class GameController implements ActionListener {
                 } else {
                     current_game.getBoard().getBox(x, y).setPiece(null);
                 }
-           }
-           scan.close();
+            }
+            scan.close();
+            game_gui.showLoadCompleteMessage();
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "No save file found.");
+            game_gui.showLoadErrorMessage();
         } 
     }
 
