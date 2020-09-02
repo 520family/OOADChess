@@ -23,15 +23,16 @@ public class GameController implements ActionListener {
         game_gui.getStartButton().setActionCommand("start");
         game_gui.getSaveButton().addActionListener(this);
         game_gui.getSaveButton().setActionCommand("save");
+        game_gui.getSaveButton().setVisible(false);
         game_gui.getLoadButton().addActionListener(this);
         game_gui.getLoadButton().setActionCommand("load");
-
     }
 
     public void startGame(){
         if(current_game == null){
             current_game = new Game();
             game_gui.getStartButton().setVisible(false);
+            game_gui.getSaveButton().setVisible(true);
             for(int y = 0; y < 8; y++){
                 for(int x = 0; x < 7; x++){
                     game_gui.getButton(x, y).addActionListener(new MoveListener(y,x));
@@ -91,6 +92,8 @@ public class GameController implements ActionListener {
             }
             scan.close();
             game_gui.showLoadCompleteMessage();
+            game_gui.getStartButton().setVisible(false);
+            game_gui.getSaveButton().setVisible(true);
         } catch (FileNotFoundException e) {
             game_gui.showLoadErrorMessage();
         } 
