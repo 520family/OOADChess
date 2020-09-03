@@ -74,6 +74,7 @@ public class Game {
         }
     }
     
+    //Terence Tan Kah Chee
     public int movePiece(int start_x, int start_y, int end_x, int end_y)
     // return true when piece is moved and false otherwise
     {
@@ -144,6 +145,7 @@ public class Game {
 
     }
 
+    //Terence Tan Kah Chee
     public void flipBoard(){
         Piece[][] UpperPieces = board.getReversedUpperPieces();
         Piece[][] LowerPieces = board.getReversedLowerPieces();

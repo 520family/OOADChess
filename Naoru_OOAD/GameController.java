@@ -28,6 +28,7 @@ public class GameController implements ActionListener {
         game_gui.getLoadButton().setActionCommand("load");
     }
 
+    //Low Zi Jian
     public void startGame(){
         if(current_game == null){
             current_game = new Game();
@@ -42,6 +43,7 @@ public class GameController implements ActionListener {
         }
     }
 
+    //Low Zi Jian
     public void saveGame(Game current_game) {
         if(current_game == null){
             game_gui.showSaveErrorMessage();
@@ -68,6 +70,7 @@ public class GameController implements ActionListener {
             }
         }
     }
+
 
     public void loadGame(){
         File file = new File("SaveGame.txt");
@@ -103,6 +106,7 @@ public class GameController implements ActionListener {
         } 
     }
 
+
     public void updateVisual(){
         JButton[][] buttons = game_gui.getAllButtons();
         Square[][] squares = current_game.getBoard().getAllBox();
@@ -135,6 +139,7 @@ public class GameController implements ActionListener {
     public static void main (String[] args){
         new GameController();
     }
+
 
     public void actionPerformed(ActionEvent event){
         if(event.getActionCommand() == "start"){

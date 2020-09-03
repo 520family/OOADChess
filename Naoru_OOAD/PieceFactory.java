@@ -1,4 +1,5 @@
 public class PieceFactory {
+    //Low Zi Jian
     public static Piece makePiece(String piece_name,boolean is_blue){
         switch (piece_name) {
             case "Sun":

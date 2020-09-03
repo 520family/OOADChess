@@ -1,23 +1,19 @@
 import java.util.*;
 
 class ChessBoard
-{   Square[][] boxes = new Square[8][7]; // create a spot for the pieces
+{   private Square[][] boxes = new Square[8][7]; // create a spot for the pieces
 
     public ChessBoard(){
         this.resetBoard(); // this line is to reset the game 
 	}
 
+    //Chan Jun Ting
     public Square getBox(int x, int y)//this function is to get coordinates box of x and y axis
 	{ 
-		//if the user type the out of the range of x and y axis it with throw a message error
-		if(x<0 || x>7 || y<0 || y>8)
-        { 
-            //throw new Exception("spot did not exist");
-        }
-	
 	    return boxes[y][x];
  	}
 
+    //Chan Jun Ting, Terence Tan Kah Chee
     public void resetBoard()// this function is reset the pieces into their place
     { 
         // Initialize remain blank Square
@@ -58,6 +54,7 @@ class ChessBoard
         return boxes;
     }
 
+    //Terence Tan Kah Chee, Low Zi Jian, Ng Jia Liang
     public Piece[][] getReversedUpperPieces() {
 
         Piece[][] tempbox = new Piece [4][7];
@@ -69,6 +66,7 @@ class ChessBoard
         return tempbox;
     }
 
+    //Terence Tan Kah Chee, Low Zi Jian, Ng Jia Liang
     public Piece[][] getReversedLowerPieces() {
 
         Piece[][] tempbox = new Piece [4][7];
@@ -79,11 +77,13 @@ class ChessBoard
         }
         return tempbox;
     }
-
+    
+    //Chan Jun Ting
     public void setBox(int x, int y, Square square){
         boxes[y][x] = square;
     }
-     
+    
+    //Ng Jia Liang
     public void clearBoxes(){
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 7; x++) {

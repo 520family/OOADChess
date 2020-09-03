@@ -10,31 +10,40 @@ abstract class Piece {
         this.setName(name);
     }
 
+    //Terence Tan Kah Chee
     public boolean isBlue() {
         return this.blue;
     }
 
+    //Terence Tan Kah Chee
     public void setBlue(boolean blue) {
         this.blue = blue;
     }
 
+    //Terence Tan Kah Chee
     public boolean isDead() {
         return this.dead;
     }
 
+    //Terence Tan Kah Chee
     public void setDead(boolean dead) {
         this.dead = dead;
     }
 
+    //Terence Tan Kah Chee
     public void setName(String name){
         this.name = name;
     }
+
+    //Terence Tan Kah Chee
     public String getName(){
         return name;
     }
 
+    //Terence Tan Kah Chee
     public abstract boolean validMove(ChessBoard board, Square from, Square to);
 
+    //Terence Tan Kah Chee
     public abstract String getIcon(int current_turn); 
 }
 
@@ -45,6 +54,7 @@ class Sun extends Piece {
 
     }
 
+    //Terence Tan Kah Chee
     public boolean validMove(ChessBoard board, Square from, Square to) {
         // check if piece killing his ally
         if(to.getPiece() != null){
@@ -79,6 +89,7 @@ class Chevron extends Piece {
           super(blue,"Chevron");
     }
 
+    //Terence Tan Kah Chee
     public boolean validMove(ChessBoard board, Square from, Square to){
         // check if piece killing his ally
         if(to.getPiece() != null){
@@ -96,6 +107,7 @@ class Chevron extends Piece {
         return false;
     }
     
+    //Terence Tan Kah Chee
     public String getIcon(int current_turn){
         if(isBlue()){
             if(current_turn == 0){
@@ -120,6 +132,7 @@ class Triangle extends Piece {
         super(blue,"Triangle");
     }
 
+    //Terence Tan Kah Chee, Tan Kuang Cheng
     public boolean validMove(ChessBoard board, Square from, Square to) {
         // check if piece killing his ally
         if(to.getPiece() != null){
@@ -171,6 +184,7 @@ class Triangle extends Piece {
         return false;
     }
 
+    //Terence Tan Kah Chee
     public String getIcon(int current_turn){
         if(isBlue()){
             if(current_turn == 0){
@@ -195,6 +209,7 @@ class Plus extends Piece {
         super(blue,"Plus");
     }
 
+    //Terence Tan Kah Chee
     public boolean validMove(ChessBoard board, Square from, Square to) {
         // check if piece killing his ally
         if(to.getPiece() != null){
@@ -241,6 +256,7 @@ class Plus extends Piece {
         return false;
     }
 
+    //Terence Tan Kah Chee
     public String getIcon(int current_turn){
         if(isBlue()){
             return "BluePlus.png";
@@ -265,6 +281,7 @@ class Arrow extends Piece {
         return this.reached_end;
     }
 
+    //Chan Jun Ting, Low Zi Jian
     public boolean validMove(ChessBoard board, Square from, Square to){
         // check if piece killing his ally
         if(to.getPiece() != null){
@@ -306,6 +323,7 @@ class Arrow extends Piece {
         }
     }
 
+    //Terence Tan Kah Chee
     public String getIcon(int current_turn){
         if(isBlue()){
             if(current_turn == 0){

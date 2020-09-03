@@ -50,11 +50,13 @@ class GameGUI extends JFrame implements ComponentListener{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    //Tan Kuang Cheng
     @Override
     public void componentShown(ComponentEvent e) {
             // ignore
     }
 
+    //Tan Kuang Cheng
     @Override
     public void componentResized(ComponentEvent e) {
         Object source = e.getSource();
@@ -67,16 +69,20 @@ class GameGUI extends JFrame implements ComponentListener{
         }
     }
 
+    //Tan Kuang Cheng
     @Override
     public void componentMoved(ComponentEvent e) {}
 
+    //Tan Kuang Cheng
     @Override
     public void componentHidden(ComponentEvent e) {}
 
+    //Tan Kuang Cheng
     public JButton getStartButton(){
         return start;
     }
 
+    //Tan Kuang Cheng
     public JButton getButton(int x, int y){
         return buttons[y][x];
     }
@@ -101,6 +107,7 @@ class GameGUI extends JFrame implements ComponentListener{
         JOptionPane.showMessageDialog(null, "You can't move your enemy piece!");
     }
 
+    //Terence Tan Kah Chee
     public void showInvalidMoveError(){
         JOptionPane.showMessageDialog(null, "This is an invalid move for the following piece!");
     }
@@ -123,6 +130,7 @@ class GameGUI extends JFrame implements ComponentListener{
         JOptionPane.showMessageDialog(null, "Save failed.");
     }
 
+    //Terence Tan Kah Chee
     public JLabel showInstructionBoard(){
         ImageIcon i = new ImageIcon("instruction.png");
         JLabel l = new JLabel(i);
