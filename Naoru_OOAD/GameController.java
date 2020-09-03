@@ -77,7 +77,8 @@ public class GameController implements ActionListener {
         boolean bool;
         try {
             Scanner scan = new Scanner(file); 
-            current_game = new Game();
+            //current_game = new Game();
+            startGame();
             current_game.setCurrent_Turn(scan.nextInt()); 
             current_game.setPlayer1Moves(scan.nextInt());
             current_game.setPlayer2Moves(scan.nextInt());
@@ -183,6 +184,8 @@ public class GameController implements ActionListener {
                         game_gui.showWrongPieceError();
                         break;
                     case Game.GAME_END:
+                        updateVisual();
+                        System.out.println("Here");
                         game_gui.endGameMessage(current_game.getCurrentPlayer().toString());
                         current_game.restartGame();
                         game_gui.getStartButton().setVisible(true);
