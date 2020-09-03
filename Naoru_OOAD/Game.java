@@ -107,6 +107,8 @@ public class Game {
         if (target != null) {
             target.setDead(true);
             if(target instanceof Sun){
+                to.setPiece(source);
+                from.setPiece(null);
                 return GAME_END;
             }
         }
