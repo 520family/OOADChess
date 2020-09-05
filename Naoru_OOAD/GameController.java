@@ -114,6 +114,7 @@ public class GameController implements ActionListener {
         JLabel turn = game_gui.getTurnLabel();
         String side = current_game.getCurrent_Turn() == 0 ? "Red" : "Blue";
         turn.setText(side + " Turn");
+        //Chan Jun Ting until turn.setForeground(Color.blue); part
         turn.setFont(new Font("TimesRoman", Font.PLAIN, 30));
         if(current_game.getCurrent_Turn() == 0){
             turn.setForeground(Color.red);
@@ -121,6 +122,7 @@ public class GameController implements ActionListener {
         else{
             turn.setForeground(Color.blue);
         }
+        
 
         for(int y = 0; y < squares.length; y++){
             for(int x = 0; x < squares[y].length; x++){
