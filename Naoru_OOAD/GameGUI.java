@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 import javax.sound.sampled.*;
 import javax.swing.*;
-
+//Tan Kuang Chen
 class GameGUI extends JFrame implements ComponentListener{
 
     private JButton [][] buttons;
@@ -50,13 +50,13 @@ class GameGUI extends JFrame implements ComponentListener{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    //Tan Kuang Cheng
+    //Tan Kuang Chen
     @Override
     public void componentShown(ComponentEvent e) {
             // ignore
     }
 
-    //Tan Kuang Cheng
+    //Tan Kuang Chen
     @Override
     public void componentResized(ComponentEvent e) {
         Object source = e.getSource();
@@ -69,20 +69,20 @@ class GameGUI extends JFrame implements ComponentListener{
         }
     }
 
-    //Tan Kuang Cheng
+    //Tan Kuang Chen
     @Override
     public void componentMoved(ComponentEvent e) {}
 
-    //Tan Kuang Cheng
+    //Tan Kuang Chen
     @Override
     public void componentHidden(ComponentEvent e) {}
 
-    //Tan Kuang Cheng
+    //Tan Kuang Chen
     public JButton getStartButton(){
         return start;
     }
 
-    //Tan Kuang Cheng
+    //Tan Kuang Chen
     public JButton getButton(int x, int y){
         return buttons[y][x];
     }
