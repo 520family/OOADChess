@@ -136,7 +136,7 @@ class Triangle extends Piece {
         super(blue,"Triangle");
     }
 
-    //Terence Tan Kah Chee, Tan Kuang Cheng
+    //Terence Tan Kah Chee, Tan Kuang Chen
     public boolean validMove(ChessBoard board, Square from, Square to) {
         // check if piece killing his ally
         if(to.getPiece() != null){
