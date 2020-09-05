@@ -1,3 +1,4 @@
+
 public class Player{
     //boolean representation of player side, true as blue side and false for red side
     private boolean blue_side;
@@ -13,6 +14,7 @@ public class Player{
     public void setSide(boolean side){
         this.blue_side = side;
     }
+    +//Low Zi Jian
     public String toString(){
         if(blue_side){
             return "blue";

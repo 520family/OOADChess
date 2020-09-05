@@ -111,21 +111,23 @@ class GameGUI extends JFrame implements ComponentListener{
     public void showInvalidMoveError(){
         JOptionPane.showMessageDialog(null, "This is an invalid move for the following piece!");
     }
-
+    //Low Zi Jian
     public void endGameMessage(String player){
         JOptionPane.showMessageDialog(null, "Player " + player + " win!");
     }
-
+    //Low Zi Jian
     public void showSaveCompleteMessage(){
         JOptionPane.showMessageDialog(null,"Save Completed.");
     }
-
+    //Low Zi Jian
     public void showLoadCompleteMessage(){
         JOptionPane.showMessageDialog(null,"Load Successfully.");
     }
+    //Low Zi Jian
     public void showLoadErrorMessage(){
         JOptionPane.showMessageDialog(null, "Load failed. No save file found.");
-    }    
+    } 
+    //Low Zi Jian   
     public void showSaveErrorMessage(){
         JOptionPane.showMessageDialog(null, "Save failed.");
     }

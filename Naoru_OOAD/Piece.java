@@ -4,7 +4,8 @@ abstract class Piece {
     private boolean dead = false;
     private boolean blue = false;
     private String name;
-    
+        
+    //Low Zi Jian
     public Piece(boolean blue,String name) {
         this.setBlue(blue);
         this.setName(name);
@@ -49,6 +50,7 @@ abstract class Piece {
 
 
 class Sun extends Piece {
+    //Low Zi Jian
     public Sun(boolean blue) {
        super(blue,"Sun");
 
@@ -85,6 +87,7 @@ class Sun extends Piece {
 
 
 class Chevron extends Piece {
+    //Low Zi Jian    
     public Chevron(boolean blue) {
           super(blue,"Chevron");
     }
@@ -128,6 +131,7 @@ class Chevron extends Piece {
 
 
 class Triangle extends Piece {
+    //Low Zi Jian
     public Triangle(boolean blue) {
         super(blue,"Triangle");
     }
@@ -205,6 +209,7 @@ class Triangle extends Piece {
 
 
 class Plus extends Piece {
+    //Low Zi Jian
     public Plus(boolean blue) {
         super(blue,"Plus");
     }
@@ -268,7 +273,7 @@ class Plus extends Piece {
 
 class Arrow extends Piece {
     private boolean reached_end = false;
-
+    //Low Zi Jian
     public Arrow(boolean blue){
         super(blue,"Arrow");
     }

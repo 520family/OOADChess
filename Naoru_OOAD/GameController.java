@@ -18,7 +18,6 @@ public class GameController implements ActionListener {
 
     public GameController() {
         game_gui = new GameGUI();
-
         game_gui.getStartButton().addActionListener(this);
         game_gui.getStartButton().setActionCommand("start");
         game_gui.getSaveButton().addActionListener(this);
@@ -71,7 +70,7 @@ public class GameController implements ActionListener {
         }
     }
 
-
+    //Low Zi Jian
     public void loadGame(){
         File file = new File("SaveGame.txt");
         int x;
@@ -80,7 +79,6 @@ public class GameController implements ActionListener {
         boolean bool;
         try {
             Scanner scan = new Scanner(file); 
-            //current_game = new Game();
             startGame();
             current_game.setCurrent_Turn(scan.nextInt()); 
             current_game.setPlayer1Moves(scan.nextInt());
@@ -153,6 +151,7 @@ public class GameController implements ActionListener {
         }
     }
 
+    //Low Zi Jian, Ng Jia Liang
     class MoveListener implements ActionListener{
         int x;
         int y;
