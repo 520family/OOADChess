@@ -14,7 +14,7 @@ public class Player{
     public void setSide(boolean side){
         this.blue_side = side;
     }
-    +//Low Zi Jian
+    //Low Zi Jian
     public String toString(){
         if(blue_side){
             return "blue";
